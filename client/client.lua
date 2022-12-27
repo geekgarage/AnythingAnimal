@@ -38,15 +38,13 @@ CreateThread(function()
         end
 
         -- Health Fixes
-        local pedCurrentHealth = GetEntityHealth(ped)
-        --SetMaxHealthHudDisplay(pedMaxHealth)        
+        local pedCurrentHealth = GetEntityHealth(ped)     
         if pedCurrentHealth < pedMaxHealth then
             local tempHealth = pedCurrentHealth + 2
             if tempHealth > pedMaxHealth then
                 tempHealth = pedMaxHealth
             end
             SetEntityHealth(ped, tempHealth)
-            --SetHealthHudDisplayValues(tempHealth, pedMaxHealth, true)
         end
     end
 end)
