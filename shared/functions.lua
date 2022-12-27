@@ -14,6 +14,6 @@ end
 
 function dogSwimAnim()
     loadAnimDict('creatures@rottweiler@swim@')
-    TaskPlayAnim(PlayerPedId(), "creatures@rottweiler@swim@", "swim", 8.0, 8.0, -1, 49, 0, false, false, false)
+    TaskPlayAnim(PlayerPedId(), "creatures@rottweiler@swim@", "swim", 8.0, 8.0, -1, 33, 0, false, false, false)
 end
 
