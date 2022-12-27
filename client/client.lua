@@ -29,7 +29,9 @@ CreateThread(function()
         Wait(0)
         RestorePlayerStamina(PlayerId(), 1.0)
         SetRunSprintMultiplierForPlayer(PlayerId(), 1.49)
+        SetPlayerInvincible(PlayerId(), true)
         SetPedDiesInstantlyInWater(PlayerPedId(), false)
+
     end
 end)
 
