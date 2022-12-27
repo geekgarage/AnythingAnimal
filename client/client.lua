@@ -23,22 +23,22 @@ end)
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
 
---Freeze stamina and make animal faster
+
 CreateThread(function()
     while true do
         Wait(1000)
+        local ped = PlayerPedId()
+        local player = PlayerId()
 
-        local player = source
-        local ped = GetPlayerPed(player)
+        RestorePlayerStamina(player, 1.0) -- Reset stamina
+        SetRunSprintMultiplierForPlayer(player, 1.49) -- Make animals faster
+        SetPedConfigFlag(ped, 184, true) -- Avoid drivers seat
+        SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
 
-        RestorePlayerStamina(PlayerId(), 1.0)
-        SetRunSprintMultiplierForPlayer(PlayerId(), 1.49)
-        SetPedConfigFlag(PlayerPedId(), 184, true)
-        SetPedDiesInWater(PlayerPedId(), false)
-
-        print(IsEntityInWater(ped))
-        print(IsEntityInWater(PlayerPedId()))
-        print(IsPedSwimmingUnderWater(PlayerPedId()))
-        print(GetPlayerUnderwaterTimeRemaining(PlayerId()))
+        if IsEntityInWater(ped) == 1 then -- Disable ragdoll of animals in water
+            SetPedCanRagdoll(ped, false)
+        else
+            SetPedCanRagdoll(ped, true)
+        end
     end
 end)
