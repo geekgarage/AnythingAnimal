@@ -9,13 +9,18 @@ CreateThread(function()
     while true do
         Wait(0)
         local PlayerPedHash = GetEntityModel(PlayerPedId())
+        local tempAnimalStatus = false
         for _, ListedPedHash in ipairs(animalHashList) do
             if ListedPedHash == PlayerPedHash then
-                isPlayerAnimal = true
+                tempAnimalStatus = true
+                break
+            else
+                tempAnimalStatus = false
             end
         end
-        isPlayerAnimal = false
+        isPlayerAnimal = tempAnimalStatus
     end
 end)
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
+-- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
