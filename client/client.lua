@@ -14,12 +14,9 @@ CreateThread(function()
             if ListedPedHash == PlayerPedHash then
                 tempAnimalStatus = true
                 break
-            else
-                tempAnimalStatus = false
             end
         end
         isPlayerAnimal = tempAnimalStatus
-        print(isPlayerAnimal)
     end
 end)
 
