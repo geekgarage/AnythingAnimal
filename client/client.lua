@@ -43,6 +43,7 @@ CreateThread(function()
             ResetPlayerStamina(player)
 
             if IsEntityInWater(ped) == 1 then -- If In Water
+                SetPlayerSprint(player, false)
                 if not pedAnimPlaying then
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
                     SetSwimMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
