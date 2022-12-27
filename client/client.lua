@@ -1,6 +1,7 @@
 local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
+local pedAnimPlaying = false
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
@@ -44,9 +45,17 @@ CreateThread(function()
             if IsEntityInWater(ped) == 1 then -- If In Water
                 SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
                 SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
+                if not pedAnimPlaying then
+                    dogSwimAnim()
+                    pedAnimPlaying = true
+                end
             else
                 SetPedCanRagdoll(ped, true) -- Enable ragdoll again
                 SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierLand) -- Make animals faster on land
+                if pedAnimPlaying then
+                    ClearPedTasks(ped)
+                    pedAnimPlaying = false
+                end
             end
         end
     end
