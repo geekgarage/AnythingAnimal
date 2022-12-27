@@ -44,7 +44,7 @@ CreateThread(function()
     end
 end)
 
-CreateThread(function()
+--[[ CreateThread(function()
     while true do
         Wait(100)
 
@@ -53,6 +53,6 @@ CreateThread(function()
 
         local maxHealth = GetPedMaxHealth(ped)
 
-        
+
     end
-end)
+end) ]]
