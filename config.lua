@@ -5,7 +5,7 @@
 --|       to use animal emotes but not human          |--
 ---------------------------------------------------------
 
-local animalPed = {
+AnimalPed = {
     "a_c_chop",
     "a_c_coyote",
     "a_c_husky",

@@ -1,6 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
+author 'GeekGarage <info@geekgarage.dk>'
 description 'AnythingAnimal'
 version '1.0.0'
 
