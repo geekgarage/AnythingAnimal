@@ -27,11 +27,13 @@ exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 CreateThread(function()
     while true do
         Wait(1000)
+
         local ped = PlayerPedId()
         local player = PlayerId()
-        RestorePlayerStamina(player, 1.0) -- Reset stamina     
-        SetPedConfigFlag(ped, 184, true) -- Avoid drivers seat
+
+        RestorePlayerStamina(player, 1.0) -- Reset stamina
         SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
+
         if IsEntityInWater(ped) == 1 then -- If In Water
             SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
             SetRunSprintMultiplierForPlayer(player, 0.85) -- Make animals slower in water
@@ -39,5 +41,18 @@ CreateThread(function()
             SetPedCanRagdoll(ped, true) -- Enable ragdoll again
             SetRunSprintMultiplierForPlayer(player, 1.49) -- Make animals faster on land
         end
+    end
+end)
+
+CreateThread(function()
+    while true do
+        Wait(100)
+
+        local ped = PlayerPedId()
+        local player = PlayerId()
+
+        local maxHealth = GetPedMaxHealth(ped)
+
+        
     end
 end)
