@@ -31,6 +31,8 @@ CreateThread(function()
         local ped = PlayerPedId()
         local player = PlayerId()
 
+        print(GetPlayerHealthRechargeLimit(player))
+
         RestorePlayerStamina(player, 1.0) -- Reset stamina
         SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
         SetPlayerHealthRechargeMultiplier(player, 1.0)
