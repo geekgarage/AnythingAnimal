@@ -45,12 +45,13 @@ CreateThread(function()
 
         -- Health Fixes
         if pedCurrentHealth < pedMaxHealth then
-            local tempHealth = pedCurrentHealth + 10
-            if tempHealth > pedMaxHealth then
+            local tempHealth = pedCurrentHealth + 2
+            print(tempHealth)
+            --[[ if tempHealth > pedMaxHealth then
                 SetEntityHealth(ped, pedMaxHealth)
             else
                 SetEntityHealth(ped, tempHealth)
-            end
+            end ]]
         end
     end
 end)
