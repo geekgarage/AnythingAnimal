@@ -35,10 +35,10 @@ CreateThread(function()
         SetRunSprintMultiplierForPlayer(PlayerId(), 1.49)
         SetPedConfigFlag(PlayerPedId(), 184, true)
         SetPedDiesInWater(PlayerPedId(), false)
-        
-        print("IsEntityInWater " .. IsEntityInWater(ped))
-        print("IsEntityInWater " .. IsEntityInWater(PlayerPedId()))
-        print("IsPedSwimmingUnderWater " .. IsPedSwimmingUnderWater(PlayerPedId()))
-        print("GetPlayerUnderwaterTimeRemaining " .. GetPlayerUnderwaterTimeRemaining(PlayerId()))
+
+        print(IsEntityInWater(ped))
+        print(IsEntityInWater(PlayerPedId()))
+        print(IsPedSwimmingUnderWater(PlayerPedId()))
+        print(GetPlayerUnderwaterTimeRemaining(PlayerId()))
     end
 end)
