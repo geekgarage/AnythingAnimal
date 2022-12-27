@@ -4,6 +4,14 @@ Fully standalone script, is not dependant on any framework
 
 The goal of this script is to allow players to be animals. This is especially great to include people with some sort of disabillity who cant for some reason play normal RP where they need to talk to people
 
+The current script doeas the following
+- Unlimited stamina
+- Disable animal dies in water instantly
+- Health regen
+- Disable ragdoll of animals in water
+- Make animals slower in water
+- Make animals faster on land
+
 Add to server and 'ensure AnythingAnimal' in server config. 
 If running QB-Core just place the script in [standalone] category folder
 
