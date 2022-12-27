@@ -1,5 +1,6 @@
 local animalHashList = {}
 local isPlayerAnimal = false
+local pedMaxHealth = 200
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
@@ -37,19 +38,15 @@ CreateThread(function()
         end
 
         -- Health Fixes
-        local pedMaxHealth = GetEntityMaxHealth(ped)
         local pedCurrentHealth = GetEntityHealth(ped)
-        SetMaxHealthHudDisplay(pedMaxHealth)
-        
-        print(pedCurrentHealth)
-        
+        --SetMaxHealthHudDisplay(pedMaxHealth)        
         if pedCurrentHealth < pedMaxHealth then
             local tempHealth = pedCurrentHealth + 2
             if tempHealth > pedMaxHealth then
                 tempHealth = pedMaxHealth
             end
             SetEntityHealth(ped, tempHealth)
-            SetHealthHudDisplayValues(tempHealth, pedMaxHealth, true)
+            --SetHealthHudDisplayValues(tempHealth, pedMaxHealth, true)
         end
     end
 end)
