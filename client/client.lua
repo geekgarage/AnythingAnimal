@@ -41,7 +41,7 @@ CreateThread(function()
         local pedCurrentHealth = GetEntityHealth(ped)
         SetMaxHealthHudDisplay(pedMaxHealth)
         
-        print(tempHealth)
+        print(pedCurrentHealth)
         
         if pedCurrentHealth < pedMaxHealth then
             local tempHealth = pedCurrentHealth + 2
