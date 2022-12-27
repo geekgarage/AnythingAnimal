@@ -5,7 +5,10 @@ author 'GeekGarage <info@geekgarage.dk>'
 description 'AnythingAnimal'
 version '1.0.0'
 
-shared_script 'config.lua'
+shared_scripts {
+    'config.lua',
+    'shared/*.lua'
+}
 server_script 'server/*.lua'
 client_script 'client/*.lua'
 

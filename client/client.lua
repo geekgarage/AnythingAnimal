@@ -5,12 +5,6 @@ for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
 end
 
-function listToNil(inputList)
-    for k, v in ipairs(inputList) do
-        inputList[k] = nil
-    end
-end
-
 CreateThread(function()
     while true do
         Wait(0)
