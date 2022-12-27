@@ -1,4 +1,4 @@
-# AnythingAnimal
+# AnythingAnimal [WIP]
 
 Fully standalone script, is not dependant on any framework
 
