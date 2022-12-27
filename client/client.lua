@@ -19,6 +19,7 @@ CreateThread(function()
             end
         end
         isPlayerAnimal = tempAnimalStatus
+        print(isPlayerAnimal)
     end
 end)
 
