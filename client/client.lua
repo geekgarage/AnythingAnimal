@@ -31,9 +31,6 @@ CreateThread(function()
         local ped = PlayerPedId()
         local player = PlayerId()
 
-        RestorePlayerStamina(player, 1.0) -- Reset stamina
-        SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
-
         SetPlayerHealthRechargeLimit(player, 1.0) -- Set the limit of health regen to 100%
         SetPlayerHealthRechargeMultiplier(player, 1.0) -- Set the regen speed using GTA Natives
 
@@ -44,5 +41,17 @@ CreateThread(function()
             SetPedCanRagdoll(ped, true) -- Enable ragdoll again
             SetRunSprintMultiplierForPlayer(player, 1.49) -- Make animals faster on land
         end
+    end
+end)
+
+-- Regen health
+CreateThread(function()
+    while true do
+        Wait(1000)
+
+        local ped = PlayerPedId()
+        local player = PlayerId()
+
+        
     end
 end)
