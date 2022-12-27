@@ -52,7 +52,8 @@ CreateThread(function()
             else
                 SetPedCanRagdoll(ped, true) -- Enable ragdoll again
                 SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierLand) -- Make animals faster on land
-                RestorePlayerStamina(player, Config.StaminaRestoreAmount) -- Restore X stamina
+                --RestorePlayerStamina(player, Config.StaminaRestoreAmount) -- Restore X stamina
+                ResetPlayerStamina(player)
                 if pedAnimPlaying then
                     ClearPedTasks(ped)
                     pedAnimPlaying = false
