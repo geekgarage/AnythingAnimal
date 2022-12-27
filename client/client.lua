@@ -32,11 +32,11 @@ CreateThread(function()
         isPlayerAnimal = tempAnimalStatus
 
         -- Land and Water fixes
-        RestorePlayerStamina(player, 1.0) -- Reset stamina
+        RestorePlayerStamina(player, 1.5) -- Reset stamina
         SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
         if IsEntityInWater(ped) == 1 then -- If In Water
             SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
-            SetRunSprintMultiplierForPlayer(player, 1.00) -- Make animals normal speed in water
+            SetRunSprintMultiplierForPlayer(player, 1.01) -- Make animals normal speed in water
         else
             SetPedCanRagdoll(ped, true) -- Enable ragdoll again
             SetRunSprintMultiplierForPlayer(player, 1.49) -- Make animals faster on land
