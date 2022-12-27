@@ -20,6 +20,7 @@ CreateThread(function()
         -- Health Fixes vars
         local pedMaxHealth = GetEntityMaxHealth(ped)
         local pedCurrentHealth = GetEntityHealth(ped)
+        SetMaxHealthHudDisplay(pedMaxHealth)
 
         -- Check if player is animal
         for _, ListedPedHash in ipairs(animalHashList) do
@@ -47,10 +48,10 @@ CreateThread(function()
             local tempHealth = pedCurrentHealth + 2
             print(tempHealth)
             if tempHealth > pedMaxHealth then
-                SetEntityHealth(ped, pedMaxHealth)
-            else
-                SetEntityHealth(ped, tempHealth)
+                tempHealth = pedMaxHealth
             end
+            SetEntityHealth(ped, tempHealth)
+            SetHealthHudDisplayValues(tempHealth, pedMaxHealth, true)
         end
     end
 end)
