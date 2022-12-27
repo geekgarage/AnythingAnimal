@@ -33,6 +33,7 @@ CreateThread(function()
 
         -- Land and Water fixes
         SetPedDiesInWater(ped, false)
+        ResetPlayerStamina(ped)
         if IsEntityInWater(ped) == 1 then -- If In Water
             SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
             SetRunSprintMultiplierForPlayer(player, 1.00) -- Make animals normal speed in water
