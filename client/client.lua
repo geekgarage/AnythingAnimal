@@ -33,6 +33,7 @@ CreateThread(function()
 
         RestorePlayerStamina(player, 1.0) -- Reset stamina
         SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
+        SetPlayerHealthRechargeMultiplier(player, 1.0)
 
         if IsEntityInWater(ped) == 1 then -- If In Water
             SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
@@ -43,16 +44,3 @@ CreateThread(function()
         end
     end
 end)
-
---[[ CreateThread(function()
-    while true do
-        Wait(100)
-
-        local ped = PlayerPedId()
-        local player = PlayerId()
-
-        local maxHealth = GetPedMaxHealth(ped)
-
-
-    end
-end) ]]
