@@ -11,7 +11,7 @@ function listToNil(inputList)
     end
 end
 
-Client.CreateThread(function()
+CreateThread(function()
     while true do
         Wait(0)
         local PlayerPedHash = GetEntityModel(PlayerPedId())
