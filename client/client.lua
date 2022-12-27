@@ -26,7 +26,7 @@ exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 --Freeze stamina and make animal faster
 CreateThread(function()
     while true do
-        Wait(10)
+        Wait(0)
         RestorePlayerStamina(PlayerId(), 1.0)
         SetRunSprintMultiplierForPlayer(PlayerId(), 1.49)
         SetPedDiesInstantlyInWater(PlayerPedId(), false)
