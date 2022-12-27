@@ -7,7 +7,7 @@ end
 
 CreateThread(function()
     while true do
-        Wait(0)
+        Wait(1000)
         local PlayerPedHash = GetEntityModel(PlayerPedId())
         local tempAnimalStatus = false
         for _, ListedPedHash in ipairs(animalHashList) do
