@@ -31,11 +31,11 @@ CreateThread(function()
         local ped = PlayerPedId()
         local player = PlayerId()
 
-        print(GetPlayerHealthRechargeLimit(player))
-
         RestorePlayerStamina(player, 1.0) -- Reset stamina
         SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
-        SetPlayerHealthRechargeMultiplier(player, 1.0)
+
+        SetPlayerHealthRechargeLimit(player, 1.0) -- Set the limit of health regen to 100%
+        SetPlayerHealthRechargeMultiplier(player, 1.0) -- Set the regen speed using GTA Natives
 
         if IsEntityInWater(ped) == 1 then -- If In Water
             SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
