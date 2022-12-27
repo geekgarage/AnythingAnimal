@@ -18,7 +18,6 @@ CreateThread(function()
         for _, ListedPedHash in ipairs(animalHashList) do
             if ListedPedHash == PlayerPedHash then
                 isPlayerAnimal = true
-                print(ListedPedHash .. " = " .. PlayerPedHash)
             end
         end
         isPlayerAnimal = false
