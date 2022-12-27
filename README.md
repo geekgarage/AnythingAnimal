@@ -10,7 +10,7 @@ The current script doeas the following
 - Make animals faster on land
 - Animals won't die instantly in water
 - Disable ragdoll of animals in water
-- Give animals human speed in water (can't go below 1.0 or it will be ignored by native function) - This is currently bugged and won't apply
+- Give animals human speed in water
 
 Add to server and 'ensure AnythingAnimal' in server config. 
 If running QB-Core just place the script in [standalone] category folder
