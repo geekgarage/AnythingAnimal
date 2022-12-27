@@ -39,7 +39,7 @@ CreateThread(function()
 
         -- Health Fixes
         local pedCurrentHealth = GetEntityHealth(ped)     
-        if pedCurrentHealth < pedMaxHealth then
+        if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
             local tempHealth = pedCurrentHealth + 2
             if tempHealth > pedMaxHealth then
                 tempHealth = pedMaxHealth
