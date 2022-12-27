@@ -44,7 +44,7 @@ CreateThread(function()
             if IsEntityInWater(ped) == 1 then -- If In Water
                 SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
                 SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
-                SetPlayerStamina(ped, 0.0) -- remove stamina to avoid super swim when sprint as turning radius with full body swim animation is non-existing
+                ResetPlayerStamina(player, 0.0) -- remove stamina to avoid super swim when sprint as turning radius with full body swim animation is non-existing
                 if not pedAnimPlaying then
                     dogSwimAnim()
                     pedAnimPlaying = true
