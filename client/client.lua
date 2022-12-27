@@ -30,9 +30,14 @@ CreateThread(function()
         RestorePlayerStamina(PlayerId(), 1.0)
         SetRunSprintMultiplierForPlayer(PlayerId(), 1.49)
         SetPlayerInvincible(PlayerId(), true)
-        --SetPedDiesInstantlyInWater(PlayerPedId(), false)
+        if IsEntityInWater(GetPlayerPed(source)) then
+            print("Player is in water")
+        else
+            print("Player is not in water")
+        end
     end
 end)
+
 
 
 --WaterFix
