@@ -47,7 +47,7 @@ CreateThread(function()
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
                     SetSwimMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
                     SetPlayerSprint(player, false)
-                    dogSwimAnim()
+                    --dogSwimAnim()
                     pedAnimPlaying = true
                 end
             else
@@ -55,7 +55,7 @@ CreateThread(function()
                     SetPedCanRagdoll(ped, true) -- Enable ragdoll again
                     SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierLand) -- Make animals normal speed in water
                     SetPlayerSprint(player, true)
-                    ClearPedTasks(ped)
+                    --ClearPedTasks(ped)
                     pedAnimPlaying = false
                 end
             end
