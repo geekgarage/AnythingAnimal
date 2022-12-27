@@ -16,6 +16,7 @@ CreateThread(function()
         Wait(0)
         local PlayerPedHash = GetEntityModel(PlayerPedId())
         for _, ListedPedHash in ipairs(animalHashList) do
+            print(ListedPedHash .. " = " .. PlayerPedHash)
             if ListedPedHash == PlayerPedHash then
                 isPlayerAnimal = true
             end
