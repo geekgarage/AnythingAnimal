@@ -2,6 +2,7 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
+local tempIndex = 0
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
@@ -46,7 +47,8 @@ CreateThread(function()
                 SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
                 SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
                 if not pedAnimPlaying then
-                    dogSwimAnim()
+                    print(tempIndex)
+                    dogSwimAnim(tempIndex)
                     pedAnimPlaying = true
                 end
             else
@@ -55,6 +57,7 @@ CreateThread(function()
                 if pedAnimPlaying then
                     ClearPedTasks(ped)
                     pedAnimPlaying = false
+                    tempIndex += 1
                 end
             end
         end
