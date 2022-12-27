@@ -8,8 +8,21 @@ end
 CreateThread(function()
     while true do
         Wait(1000)
-        local PlayerPedHash = GetEntityModel(PlayerPedId())
+
+        -- General vars
+        local ped = PlayerPedId()
+        local player = PlayerId()
+
+        -- Check if player is animal vars
+        local PlayerPedHash = GetEntityModel(ped)
         local tempAnimalStatus = false
+
+        -- Health Fixes vars
+        SetEntityMaxHealth(ped, 500)
+        local pedMaxHealth = GetEntityMaxHealth(ped)
+        local pedCurrentHealth = GetEntityHealth(ped)
+
+        -- Check if player is animal
         for _, ListedPedHash in ipairs(animalHashList) do
             if ListedPedHash == PlayerPedHash then
                 tempAnimalStatus = true
@@ -17,23 +30,8 @@ CreateThread(function()
             end
         end
         isPlayerAnimal = tempAnimalStatus
-    end
-end)
 
-exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
--- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
-
-
-CreateThread(function()
-    while true do
-        Wait(1000)
-
-        local ped = PlayerPedId()
-        local player = PlayerId()
-
-        SetPlayerHealthRechargeLimit(player, 1.0) -- Set the limit of health regen to 100%
-        SetPlayerHealthRechargeMultiplier(player, 1.0) -- Set the regen speed using GTA Natives
-
+        -- Land and Water fixes
         if IsEntityInWater(ped) == 1 then -- If In Water
             SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
             SetRunSprintMultiplierForPlayer(player, 1.00) -- Make animals normal speed in water
@@ -41,17 +39,20 @@ CreateThread(function()
             SetPedCanRagdoll(ped, true) -- Enable ragdoll again
             SetRunSprintMultiplierForPlayer(player, 1.49) -- Make animals faster on land
         end
+
+
+        -- Health Fixes
+        if pedCurrentHealth < pedMaxHealth then
+            local tempHealth = pedCurrentHealth + 10
+            if tempHealth > pedMaxHealth then
+                SetEntityHealth(ped, pedMaxHealth)
+            else
+                SetEntityHealth(ped, tempHealth)
+            end
+        end
     end
 end)
 
--- Regen health
-CreateThread(function()
-    while true do
-        Wait(1000)
 
-        local ped = PlayerPedId()
-        local player = PlayerId()
-
-        
-    end
-end)
+exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
+-- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
