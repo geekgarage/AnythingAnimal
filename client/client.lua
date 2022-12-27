@@ -7,6 +7,7 @@ for _, v in ipairs(AnimalPed) do
 end
 listToNil(AnimalPed)
 
+-- Is Player Animal
 CreateThread(function()
     while true do
         Wait(1000)
@@ -32,19 +33,21 @@ end)
 CreateThread(function()
     while true do
         Wait(1000)
+        if isPlayerAnimal then
 
-        local ped = PlayerPedId()
-        local player = PlayerId()
+            local ped = PlayerPedId()
+            local player = PlayerId()
 
-        RestorePlayerStamina(player, Config.StaminaRestoreAmount) -- Restore X stamina (crude fix but works)
-        SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
+            RestorePlayerStamina(player, Config.StaminaRestoreAmount) -- Restore X stamina
+            SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
 
-        if IsEntityInWater(ped) == 1 then -- If In Water
-            SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
-            SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
-        else
-            SetPedCanRagdoll(ped, true) -- Enable ragdoll again
-            SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierLand) -- Make animals faster on land
+            if IsEntityInWater(ped) == 1 then -- If In Water
+                SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
+                SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
+            else
+                SetPedCanRagdoll(ped, true) -- Enable ragdoll again
+                SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierLand) -- Make animals faster on land
+            end
         end
     end
 end)
@@ -53,12 +56,12 @@ end)
 CreateThread(function()
     while Config.UseHealthRegen do
         Wait(Config.HealthPointsTimer)
-
-        local ped = PlayerPedId()
-        local player = PlayerId()
-
         if isPlayerAnimal then
+
+            local ped = PlayerPedId()
+            local player = PlayerId()
             local pedCurrentHealth = GetEntityHealth(ped)     
+            
             if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
                 local tempHealth = pedCurrentHealth + Config.HealthPointsRegenerated
                 if tempHealth > pedMaxHealth then

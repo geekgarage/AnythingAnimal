@@ -3,7 +3,7 @@ game 'gta5'
 
 author 'GeekGarage <info@geekgarage.dk>'
 description 'AnythingAnimal'
-version '1.0.0'
+version '1.0.1'
 
 shared_scripts {
     'config.lua',

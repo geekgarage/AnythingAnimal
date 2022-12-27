@@ -22,7 +22,7 @@ AnimalPed = {
 Config = {
     -- Health
     UseHealthRegen = true,       -- Enable health regeneration?
-    HealthPointsRegenerated = 2, -- Health Points regenerated per second?
+    HealthPointsRegenerated = 1, -- Health Points regenerated per second?
     HealthPointsTimer = 1000,    -- How often to regenerate in milliseconds? (no negative values)
 
     -- Stamina
