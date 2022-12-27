@@ -5,12 +5,12 @@ local pedMaxHealth = 200
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
 end
+listToNil(AnimalPed)
 
 CreateThread(function()
     while true do
         Wait(1000)
 
-        -- General vars
         local ped = PlayerPedId()
         local player = PlayerId()
 
@@ -25,29 +25,61 @@ CreateThread(function()
             end
         end
         isPlayerAnimal = tempAnimalStatus
+    end
+end)
 
-        -- Land and Water fixes
-        RestorePlayerStamina(player, 1.4) -- Reset stamina (crude fix but works)
+-- Land and Water fixes
+CreateThread(function()
+    while true do
+        Wait(1000)
+
+        local ped = PlayerPedId()
+        local player = PlayerId()
+
+        RestorePlayerStamina(player, Config.StaminaRestoreAmount) -- Restore X stamina (crude fix but works)
         SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
+
         if IsEntityInWater(ped) == 1 then -- If In Water
             SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
-            SetRunSprintMultiplierForPlayer(player, 1.0) -- Make animals normal speed in water
+            SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
         else
             SetPedCanRagdoll(ped, true) -- Enable ragdoll again
-            SetRunSprintMultiplierForPlayer(player, 1.49) -- Make animals faster on land
-        end
-
-        -- Health Fixes
-        local pedCurrentHealth = GetEntityHealth(ped)     
-        if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
-            local tempHealth = pedCurrentHealth + 2
-            if tempHealth > pedMaxHealth then
-                tempHealth = pedMaxHealth
-            end
-            SetEntityHealth(ped, tempHealth)
+            SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierLand) -- Make animals faster on land
         end
     end
 end)
+
+-- Health Fixes
+CreateThread(function()
+    while Config.UseHealthRegen do
+        Wait(Config.HealthPointsTimer)
+
+        local ped = PlayerPedId()
+        local player = PlayerId()
+
+        if isPlayerAnimal then
+            local pedCurrentHealth = GetEntityHealth(ped)     
+            if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
+                local tempHealth = pedCurrentHealth + Config.HealthPointsRegenerated
+                if tempHealth > pedMaxHealth then
+                    tempHealth = pedMaxHealth
+                end
+                SetEntityHealth(ped, tempHealth)
+            end
+        end
+    end
+end)
+
+CreateThread(function()
+    while Config.DisableIdleCamera do
+        Wait(10000)
+        if isPlayerAnimal then
+            InvalidateIdleCam()
+            InvalidateVehicleIdleCam()
+        end
+    end
+end)
+
 
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)

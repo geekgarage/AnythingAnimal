@@ -18,3 +18,18 @@ AnimalPed = {
     "a_c_westy",
     "ig_geek"
 }
+
+Config = {
+    -- Health
+    UseHealthRegen = true,       -- Enable health regeneration?
+    HealthPointsRegenerated = 2, -- Health Points regenerated per second?
+    HealthPointsTimer = 1000,    -- How often to regenerate in milliseconds? (no negative values)
+
+    -- Stamina
+    StaminaRestoreAmount = 1.0, -- Restores 100% stamina
+    SpeedMultiplierLand = 1.49, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
+    SpeedMultiplierWater = 1.00, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
+
+    -- Idle Camera
+    DisableIdleCamera = true -- Will disable idle camera for listed PEDs
+}
