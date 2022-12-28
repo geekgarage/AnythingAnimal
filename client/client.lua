@@ -3,11 +3,6 @@ local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
 local kvpWalkSpeed = GetResourceKvpString("AnythingAnimal_Speed")
-if not kvpWalkSpeed then 
-    local walkSpeed = 1.0
-else
-    local walkSpeed = tonumber(kvpWalkSpeed)
-end
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
@@ -120,6 +115,18 @@ end)
 
 -- Walk speed
 CreateThread(function()
+    local index = 0
+    while not kvpWalkSpeed and index < 30000 do
+        Wait(10)
+        local kvpWalkSpeed = GetResourceKvpString("AnythingAnimal_Speed")
+        index += 1
+        print(kvpWalkSpeed)
+    end
+    walkSpeed = tonumber(kvpWalkSpeed)
+    print(walkSpeed)
+end)
+
+CreateThread(function()
     while true do
         local ped = PlayerPedId()
         if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and walkSpeed ~= 1.0  then
@@ -135,12 +142,11 @@ RegisterCommand('aaws', function(source, args, raw)
     TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal)
 end, false)
 
-TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed 0.00 to 1.75")
+TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed" .. Config.WalkSpeedMin .. " to " .. Config.WalkSpeedMax)
 
 RegisterNetEvent('UpdWalkSpeed', function(speed)
     walkSpeed = speed
     SetResourceKvp("AnythingAnimal_Speed", walkSpeed)
-    print(GetResourceKvpString("AnythingAnimal_Speed"))
 end)
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
