@@ -129,20 +129,20 @@ end)
 
 
 
-RegisterCommand('setwalkspeed', function(source, args, rawCommand)
-    TriggerServerEvent('VerifyEmoteSpeed', args[1], isPlayerAnimal)
+RegisterCommand('aaws', function(source, args, raw)
+    TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal)
 end, false)
 
-TriggerEvent("chat:addSuggestion", "/setwalkspeed", "Set walk speed 0.00 to 1.75")
+TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed 0.00 to 1.75")
 
-RegisterNetEvent('updatewalkspeed', function(speed)
+RegisterNetEvent('UpdWalkSpeed', function(speed)
     walkSpeed = speed
     print(walkSpeed)
 end)
 
 
 
-RegisterCommand('aapp', function(source, args, rawCommand)
+--[[ RegisterCommand('aapp', function(source, args, rawCommand)
     TriggerServerEvent('aaping', args)
 end, false)
 
@@ -150,7 +150,7 @@ TriggerEvent("chat:addSuggestion", "/aapp", "ping pong")
 
 RegisterNetEvent('aapong', function()
     print("pong")
-end)
+end) ]]
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
