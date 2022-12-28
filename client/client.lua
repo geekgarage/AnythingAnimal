@@ -137,6 +137,7 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed 0.00 to 1.75")
 RegisterNetEvent('UpdWalkSpeed', function(speed)
     walkSpeed = speed
     SetResourceKvp("AnythingAnimal_Speed", tostring(walkSpeed))
+    print(GetResourceKvpString("AnythingAnimal_Speed"))
 end)
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
