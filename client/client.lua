@@ -114,7 +114,7 @@ CreateThread(function()
 end)
 
 -- Walk speed
-local walkSpeed = GetResourceKvpString("AnythingAnimal_Speed") == 1.0
+local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed") == "1.0")
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
@@ -135,7 +135,7 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed 0.00 to 1.75")
 
 RegisterNetEvent('UpdWalkSpeed', function(speed)
     walkSpeed = speed
-    SetResourceKvp("AnythingAnimal_Speed", walkSpeed)
+    SetResourceKvp("AnythingAnimal_Speed", tostring(walkSpeed))
 end)
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
