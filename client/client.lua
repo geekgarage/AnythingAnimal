@@ -114,10 +114,10 @@ CreateThread(function()
 end)
 
 -- Walk speed
+local walkSpeed = GetResourceKvpString("AnythingAnimal_Speed") == 1.0
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
-
         if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and walkSpeed ~= 1.0  then
             SetPedMoveRateOverride(ped, walkSpeed)
             Wait(0)
@@ -135,6 +135,7 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed 0.00 to 1.75")
 
 RegisterNetEvent('UpdWalkSpeed', function(speed)
     walkSpeed = speed
+    SetResourceKvp("AnythingAnimal_Speed", walkSpeed)
 end)
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
