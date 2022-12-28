@@ -131,6 +131,8 @@ end)
 -- Init
 RegisterCommand('setwalkspeed', function(source, args, rawCommand)
     if source > 0 then
+        print(source)
+        print(args[1])
         TriggerServerEvent('VerifyEmoteSpeed', args[1], isPlayerAnimal)
     end
 end, false)
