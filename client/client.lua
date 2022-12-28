@@ -94,6 +94,18 @@ CreateThread(function()
     end
 end)
 
+CreateThread(function()
+    while true do
+        Wait(1000)
+        
+        local ped = PlayerPedId()
+        local player = PlayerId()
+        local xyz = GetEntityCoords(ped)
+
+        print(xyz)
+        print(IsCollisionMarkedOutside(xyz))
+    end
+end)
 
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
