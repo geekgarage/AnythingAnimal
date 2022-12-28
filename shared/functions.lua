@@ -19,5 +19,5 @@ end
 
 function dogRunAnim()
     loadAnimDict('creatures@rottweiler@move')
-    TaskPlayAnim(PlayerPedId(), "creatures@rottweiler@move", "gallop", 8.0, 8.0, -1, 51, 0, false, false, false)
+    SetPedAlternateMovementAnim(PlayerPedId(), 2, "creatures@rottweiler@move", "gallop", 1.0, true)
 end

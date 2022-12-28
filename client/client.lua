@@ -27,6 +27,9 @@ CreateThread(function()
             end
         end
         isPlayerAnimal = tempAnimalStatus
+        if isPlayerAnimal then
+            SetPlayerLockonRangeOverride(player, 20.0)
+        end
     end
 end)
 
