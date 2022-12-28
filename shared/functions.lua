@@ -19,5 +19,10 @@ end
 
 function dogRunAnim()
     loadAnimDict('creatures@rottweiler@move')
-    TaskPlayAnim(PlayerPedId(), "creatures@rottweiler@move", "gallop", 8.0, 8.0, -1, 51, 0, false, false, false)
+    TaskPlayAnim(PlayerPedId(), "creatures@rottweiler@move", "gallop", 8.0, 8.0, -1, 47, 0, false, false, false)
+end
+
+function dogWalkAnim()
+    loadAnimDict('creatures@rottweiler@move')
+    TaskPlayAnim(PlayerPedId(), "creatures@rottweiler@move", "idle", 8.0, 8.0, -1, 47, 0, false, false, false)
 end
