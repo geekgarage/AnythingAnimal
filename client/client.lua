@@ -97,13 +97,28 @@ CreateThread(function()
     end
 end)
 
+-- MLO and underground run speed
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
         local xyz = GetEntityCoords(ped)
 
         if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
-            SetPedMoveRateOverride(ped, 1.5)
+            SetPedMoveRateOverride(ped, 1.75)
+            Wait(0)
+        else
+            Wait(1000)
+        end
+    end
+end)
+
+-- Walk speed
+CreateThread(function()
+    while true do
+        local ped = PlayerPedId()
+
+        if IsPedWalking(ped) and IsControlPressed(0, 32) then
+            SetPedMoveRateOverride(ped, 0.55)
             Wait(0)
         else
             Wait(1000)
