@@ -134,7 +134,8 @@ end, false)
 
 TriggerEvent("chat:addSuggestion", "/setwalkspeed", "Set walk speed 0.00 to 1.75")
 
-RegisterNetEvent('updatewalkspeed', function(speed)
+RegisterNetEvent('updatewalkspeed')
+AddEventHandler('updatewalkspeed', function(speed)
     walkSpeed = speed
     print(walkSpeed)
 end)
