@@ -25,9 +25,14 @@ Config = {
     HealthPointsRegenerated = 1, -- Health Points regenerated per second?
     HealthPointsTimer = 1000,    -- How often to regenerate in milliseconds? (no negative values)
 
-    -- Speed
+    -- Speed 
     SpeedMultiplierLand = 1.49, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
     SpeedMultiplierWater = 1.00, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
+    -- 1.80 is far from full run speed but the max speed where the animation looks decent
+    WalkSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
+    WalkSpeedMax = 1.80, -- Set the adjustable walk speed maximum value
+    MloRunSpeed = 1.80, -- Set the MLO/underground run speed 
+
 
     -- Idle Camera
     DisableIdleCamera = true -- Will disable idle camera for listed PEDs

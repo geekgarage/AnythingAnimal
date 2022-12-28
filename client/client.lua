@@ -106,7 +106,7 @@ CreateThread(function()
         local xyz = GetEntityCoords(ped)
 
         if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
-            SetPedMoveRateOverride(ped, 1.75)
+            SetPedMoveRateOverride(ped, Config.MloRunSpeed)
             Wait(0)
         else
             Wait(1000)
