@@ -2,9 +2,7 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
-local walkSpeed = GetResourceKvpString("AnythingAnimal_Speed") == "1.0"
-walkSpeed = tonumber(walkSpeed)
-print(walkSpeed)
+local walkSpeed = GetResourceKvpString("AnythingAnimal_Speed") == 1.0
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
@@ -136,7 +134,7 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed 0.00 to 1.75")
 
 RegisterNetEvent('UpdWalkSpeed', function(speed)
     walkSpeed = speed
-    SetResourceKvp("AnythingAnimal_Speed", tostring(walkSpeed))
+    SetResourceKvp("AnythingAnimal_Speed", walkSpeed)
     print(GetResourceKvpString("AnythingAnimal_Speed"))
 end)
 
