@@ -122,6 +122,7 @@ CreateThread(function()
             SetPedMoveRateOverride(ped, walkSpeed)
             Wait(0)
         else
+            print(walkSpeed)
             Wait(1000)
         end
     end
