@@ -143,7 +143,7 @@ end)
 
 
 RegisterCommand('aapp', function(source, args, rawCommand)
-    TriggerServerEvent('aaping')
+    TriggerServerEvent('aaping', args)
 end, false)
 
 TriggerEvent("chat:addSuggestion", "/aapp", "ping pong")
