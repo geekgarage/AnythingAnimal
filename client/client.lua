@@ -110,6 +110,7 @@ CreateThread(function()
             if pedAnimPlaying then
                 ClearPedTasks()
                 pedAnimPlaying = false
+                print("Animation Disabled")
             end
             Wait(1000)
         end
