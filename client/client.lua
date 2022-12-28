@@ -127,7 +127,7 @@ CreateThread(function()
     end
 end)
 
--- Init
+
 RegisterCommand('setwalkspeed', function(source, args, rawCommand)
     TriggerServerEvent('VerifyEmoteSpeed', args[1], isPlayerAnimal)
 end, false)

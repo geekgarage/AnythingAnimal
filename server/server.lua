@@ -1,7 +1,5 @@
 RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal)
     if not isAnimal then return end
-    local ped = GetPlayerPed(source)
-
     speed = tonumber(speed)
 
     if speed > 1.75 then
@@ -11,5 +9,5 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal)
     end
     print(source)
     print(speed)
-    TriggerClientEvent('updatewalkspeed', ped, speed)
+    TriggerClientEvent('updatewalkspeed', source, speed)
 end)
