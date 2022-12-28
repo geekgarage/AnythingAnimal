@@ -128,6 +128,7 @@ CreateThread(function()
 end)
 
 
+
 RegisterCommand('setwalkspeed', function(source, args, rawCommand)
     TriggerServerEvent('VerifyEmoteSpeed', args[1], isPlayerAnimal)
 end, false)
@@ -137,6 +138,18 @@ TriggerEvent("chat:addSuggestion", "/setwalkspeed", "Set walk speed 0.00 to 1.75
 RegisterNetEvent('updatewalkspeed', function(speed)
     walkSpeed = speed
     print(walkSpeed)
+end)
+
+
+
+RegisterCommand('aapp', function(source, args, rawCommand)
+    TriggerServerEvent('aaping')
+end, false)
+
+TriggerEvent("chat:addSuggestion", "/aapp", "ping pong")
+
+RegisterNetEvent('aapong', function()
+    print("pong")
 end)
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
