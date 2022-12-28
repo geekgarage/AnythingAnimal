@@ -122,7 +122,6 @@ CreateThread(function()
             SetPedMoveRateOverride(ped, walkSpeed)
             Wait(0)
         else
-            print(walkSpeed)
             Wait(1000)
         end
     end
@@ -130,11 +129,9 @@ end)
 
 -- Init
 RegisterCommand('setwalkspeed', function(source, args, rawCommand)
-    if source > 0 then
-        print(source)
-        print(args[1])
-        TriggerServerEvent('VerifyEmoteSpeed', args[1], isPlayerAnimal)
-    end
+    print(source)
+    print(args[1])
+    TriggerServerEvent('VerifyEmoteSpeed', args[1], isPlayerAnimal)
 end, false)
 
 TriggerEvent("chat:addSuggestion", "/setwalkspeed", "Set walk speed 0.00 to 1.75")
