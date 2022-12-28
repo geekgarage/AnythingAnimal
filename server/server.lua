@@ -11,3 +11,8 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal)
     print(speed)
     TriggerClientEvent('updatewalkspeed', source, speed)
 end)
+
+RegisterNetEvent('aaping', function()
+    print("ping")
+    TriggerClientEvent('aapong', source)
+end)
