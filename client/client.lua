@@ -108,7 +108,7 @@ CreateThread(function()
             Wait(0)
         else
             if pedAnimPlaying then
-                ClearPedTasks()
+                dogWalkAnim()
                 pedAnimPlaying = false
                 print("Animation Disabled")
             end
