@@ -96,15 +96,15 @@ end)
 
 CreateThread(function()
     while true do
-        Wait(1000)
-
         local ped = PlayerPedId()
         local xyz = GetEntityCoords(ped)
 
-        while not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) do
+        if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
             Wait(0)
             print(IsCollisionMarkedOutside(xyz))
             SetPedMoveRateOverride(ped, 3.0)
+        else
+            Wait(1000)
         end
     end
 end)
