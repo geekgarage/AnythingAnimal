@@ -100,6 +100,7 @@ CreateThread(function()
 
         local ped = PlayerPedId()
         local xyz = GetEntityCoords(ped)
+        
         while not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) do
             Wait(0)
             SetPedMoveRateOverride(ped, 1.0)
