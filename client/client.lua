@@ -118,7 +118,7 @@ CreateThread(function()
     while true do
         local ped = PlayerPedId()
 
-        if IsPedWalking(ped) and IsControlPressed(0, 32) then
+        if IsPedWalking(ped) and (IsControlPressed(0, 30) or IsControlPressed(0, 31) or IsControlPressed(0, 32) or IsControlPressed(0, 33) or) and walkSpeed ~= 1.0  then
             SetPedMoveRateOverride(ped, walkSpeed)
             Wait(0)
         else
@@ -126,8 +126,6 @@ CreateThread(function()
         end
     end
 end)
-
-
 
 RegisterCommand('aaws', function(source, args, raw)
     TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal)
@@ -137,20 +135,7 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed 0.00 to 1.75")
 
 RegisterNetEvent('UpdWalkSpeed', function(speed)
     walkSpeed = speed
-    print(walkSpeed)
 end)
-
-
-
---[[ RegisterCommand('aapp', function(source, args, rawCommand)
-    TriggerServerEvent('aaping', args)
-end, false)
-
-TriggerEvent("chat:addSuggestion", "/aapp", "ping pong")
-
-RegisterNetEvent('aapong', function()
-    print("pong")
-end) ]]
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
