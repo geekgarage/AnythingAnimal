@@ -12,6 +12,15 @@ function loadAnimDict(dict)
     end
 end
 
+function unloadAnimDict(dict)
+    if HasAnimDictLoaded(dict) then 
+        RemoveAnimDict(dict)
+    end
+    while HasAnimDictLoaded(dict) do
+        Wait(10)
+    end
+end
+
 function dogSwimAnim()
     loadAnimDict('creatures@rottweiler@swim@')
     TaskPlayAnim(PlayerPedId(), "creatures@rottweiler@swim@", "swim", 8.0, 8.0, -1, 49, 0, false, false, false)
@@ -23,6 +32,5 @@ function dogRunAnim()
 end
 
 function dogWalkAnim()
-    loadAnimDict('creatures@rottweiler@move')
-    TaskPlayAnim(PlayerPedId(), "creatures@rottweiler@move", "idle", 8.0, 8.0, -1, 47, 0, false, false, false)
+    unloadAnimDict('creatures@rottweiler@move')
 end
