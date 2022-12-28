@@ -118,7 +118,7 @@ CreateThread(function()
     while true do
         local ped = PlayerPedId()
 
-        if IsPedWalking(ped) and (IsControlPressed(0, 30) or IsControlPressed(0, 31) or IsControlPressed(0, 32) or IsControlPressed(0, 33)) and walkSpeed ~= 1.0  then
+        if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and walkSpeed ~= 1.0  then
             SetPedMoveRateOverride(ped, walkSpeed)
             Wait(0)
         else
