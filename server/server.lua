@@ -1,4 +1,5 @@
 RegisterNetEvent("VerifyEmoteSpeed", function(speed, isAnimal)
+    print(isAnimal)
     if not isAnimal then return end
     local ped = GetPlayerPed(source)
 
