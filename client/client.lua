@@ -103,7 +103,7 @@ CreateThread(function()
 
         while not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) do
             Wait(0)
-            SetPedMoveRateOverride(ped, 5.0)
+            SetPedMoveRateOverride(ped, 2.0)
         end
     end
 end)
