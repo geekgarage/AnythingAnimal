@@ -104,8 +104,10 @@ CreateThread(function()
 
         if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
             SetPedMoveRateOverride(ped, 2.0)
+            dogRunAnim()
             Wait(0)
         else
+            ClearPedTasks(ped)
             Wait(1000)
         end
     end
