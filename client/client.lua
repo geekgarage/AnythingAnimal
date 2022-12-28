@@ -100,19 +100,19 @@ CreateThread(function()
         local xyz = GetEntityCoords(ped)
 
         if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
-            Wait(0)
             print(IsCollisionMarkedOutside(xyz))
             SetPedMoveRateOverride(ped, 2.5)
             if not pedAnimPlaying then
                 dogRunAnim()
                 pedAnimPlaying = true
             end
+            Wait(0)
         else
-            Wait(1000)
-            if not pedAnimPlaying then
+            if pedAnimPlaying then
                 ClearPedTasks()
                 pedAnimPlaying = false
             end
+            Wait(1000)
         end
     end
 end)
