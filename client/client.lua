@@ -103,8 +103,16 @@ CreateThread(function()
             Wait(0)
             print(IsCollisionMarkedOutside(xyz))
             SetPedMoveRateOverride(ped, 2.5)
+            if not pedAnimPlaying then
+                dogRunAnim()
+                pedAnimPlaying = true
+            end
         else
             Wait(1000)
+            if not pedAnimPlaying then
+                ClearPedTasks()
+                pedAnimPlaying = false
+            end
         end
     end
 end)
