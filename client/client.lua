@@ -96,17 +96,16 @@ end)
 
 CreateThread(function()
     while true do
-        Wait(1000)
-        
-        local ped = PlayerPedId()
-        local player = PlayerId()
-        local xyz = GetEntityCoords(ped)
+        Wait(0)
 
-        print(xyz)
-        print(IsCollisionMarkedOutside(xyz))
+        local ped = PlayerPedId()
+        local xyz = GetEntityCoords(ped)
+        while not IsCollisionMarkedOutside(xyz) and IsPedSprinting() do
+            SetPedMoveRateOverride(ped, 1.0)
+            print("running!")
+        end
     end
 end)
-
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
