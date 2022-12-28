@@ -12,9 +12,9 @@ RegisterNetEvent("VerifyEmoteSpeed", function(speed, isAnimal)
 end)
 
 RegisterCommand('setwalkspeed', function(source, args, rawCommand)
-    print(source)
-    print(args)
-    print(rawCommand)
+    print(args[0])
+    print(args[1])
+    print(args[2])
     if source > 0 then
         --TriggerEvent('VerifyEmoteSpeed', args[1], isPlayerAnimal)
     end
