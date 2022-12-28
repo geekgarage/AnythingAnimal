@@ -108,7 +108,7 @@ CreateThread(function()
             Wait(0)
         else
             if pedAnimPlaying then
-                ClearPedTasksImmediately(ped)
+                ClearPedTasks(ped)
                 pedAnimPlaying = false
             end
             Wait(1000)
