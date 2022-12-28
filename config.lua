@@ -25,8 +25,7 @@ Config = {
     HealthPointsRegenerated = 1, -- Health Points regenerated per second?
     HealthPointsTimer = 1000,    -- How often to regenerate in milliseconds? (no negative values)
 
-    -- Stamina
-    StaminaRestoreAmount = 1.0, -- Restores 100% stamina
+    -- Speed
     SpeedMultiplierLand = 1.49, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
     SpeedMultiplierWater = 1.00, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
 
