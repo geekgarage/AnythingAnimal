@@ -2,6 +2,7 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
+local walkSpeed = 1.00
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
@@ -118,13 +119,26 @@ CreateThread(function()
         local ped = PlayerPedId()
 
         if IsPedWalking(ped) and IsControlPressed(0, 32) then
-            SetPedMoveRateOverride(ped, 0.55)
+            SetPedMoveRateOverride(ped, walkSpeed)
             Wait(0)
         else
             Wait(1000)
         end
     end
 end)
+
+-- Init
+if isPlayerAnimal then
+    RegisterCommand('setwalkspeed', function()
+        TriggerServerEvent('VerifyEmoteSpeed', args[1])
+    end)
+
+    TriggerEvent("chat:addSuggestion", "/setwalkspeed", "Set walk speed 0.00 to 1.75")
+
+    RegisterNetEvent('updatewalkspeed', function(speed)
+        walkSpeed = speed
+    end)
+end
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
