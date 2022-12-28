@@ -2,7 +2,8 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
-local walkSpeed = tonumber((GetResourceKvpString("AnythingAnimal_Speed") == "1.0"))
+local walkSpeed = GetResourceKvpString("AnythingAnimal_Speed") == "1.0"
+walkSpeed = tonumber(walkSpeed)
 print(walkSpeed)
 
 for _, v in ipairs(AnimalPed) do
