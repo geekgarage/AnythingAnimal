@@ -128,6 +128,13 @@ CreateThread(function()
     end
 end)
 
+-- Init
+RegisterCommand('setwalkspeed', function(source, args, rawCommand)
+    if source > 0 then
+        TriggerServerEvent('VerifyEmoteSpeed', args[1], isPlayerAnimal)
+    end
+end, false)
+
 TriggerEvent("chat:addSuggestion", "/setwalkspeed", "Set walk speed 0.00 to 1.75")
 
 RegisterNetEvent('updatewalkspeed', function(speed)
