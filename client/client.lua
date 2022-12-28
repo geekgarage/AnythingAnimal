@@ -127,18 +127,16 @@ CreateThread(function()
     end
 end)
 
--- Init
-if isPlayerAnimal then
-    RegisterCommand('setwalkspeed', function()
-        TriggerServerEvent('VerifyEmoteSpeed', args[1])
-    end)
 
-    TriggerEvent("chat:addSuggestion", "/setwalkspeed", "Set walk speed 0.00 to 1.75")
+RegisterCommand('setwalkspeed', function()
+    TriggerServerEvent('VerifyEmoteSpeed', args[1], isPlayerAnimal)
+end)
 
-    RegisterNetEvent('updatewalkspeed', function(speed)
-        walkSpeed = speed
-    end)
-end
+TriggerEvent("chat:addSuggestion", "/setwalkspeed", "Set walk speed 0.00 to 1.75")
+
+RegisterNetEvent('updatewalkspeed', function(speed)
+    walkSpeed = speed
+end)
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())

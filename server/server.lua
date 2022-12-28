@@ -1,4 +1,5 @@
-RegisterNetEvent("VerifyEmoteSpeed", function(speed)
+RegisterNetEvent("VerifyEmoteSpeed", function(speed, isAnimal)
+    if not isAnimal then return end
     local ped = GetPlayerPed(source)
 
     if speed > 1.75 then
