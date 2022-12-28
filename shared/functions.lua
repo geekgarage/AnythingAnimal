@@ -19,5 +19,5 @@ end
 
 function dogRunAnim()
     loadAnimDict('creatures@rottweiler@move')
-    SetPedAlternateMovementAnim(PlayerPedId(), 2, "creatures@rottweiler@move", "gallop", 1.0, true)
+    SetMovementModeOverride(PlayerPedId(), "gallop")
 end
