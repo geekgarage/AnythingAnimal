@@ -1,7 +1,8 @@
 RegisterNetEvent("VerifyEmoteSpeed", function(speed, isAnimal)
-    print(isAnimal)
     if not isAnimal then return end
     local ped = GetPlayerPed(source)
+
+    speed = tonumber(speed)
 
     if speed > 1.75 then
         speed = 1.75
