@@ -11,6 +11,8 @@ The current script doeas the following
 - Animals won't die instantly in water
 - Disable ragdoll of animals in water
 - Give animals human speed in water
+- Adjust normal walk speed using command /aaws x.yz
+- "Run" in MLO and in underground
 
 Add to server and 'ensure AnythingAnimal' in server config. 
 If running QB-Core just place the script in [standalone] category folder
