@@ -114,17 +114,16 @@ CreateThread(function()
 end)
 
 -- Walk speed
-CreateThread(function()
+--[[ CreateThread(function()
     local index = 0
     while not kvpWalkSpeed and index < 30000 do
         Wait(10)
         local kvpWalkSpeed = GetResourceKvpString("AnythingAnimal_Speed")
         index += 1
-        print(kvpWalkSpeed)
     end
     walkSpeed = tonumber(kvpWalkSpeed)
     print(walkSpeed)
-end)
+end) ]]
 
 CreateThread(function()
     while true do
@@ -142,7 +141,7 @@ RegisterCommand('aaws', function(source, args, raw)
     TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal)
 end, false)
 
-TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed" .. Config.WalkSpeedMin .. " to " .. Config.WalkSpeedMax)
+TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpeedMin .. " to " .. Config.WalkSpeedMax)
 
 RegisterNetEvent('UpdWalkSpeed', function(speed)
     walkSpeed = speed
