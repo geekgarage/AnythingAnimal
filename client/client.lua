@@ -108,7 +108,7 @@ CreateThread(function()
         local ped = PlayerPedId()
         local xyz = GetEntityCoords(ped)
 
-        if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
+        if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) and isPlayerAnimal then
             SetPedMoveRateOverride(ped, Config.MloRunSpeed)
             Wait(0)
         else
@@ -121,7 +121,7 @@ end)
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
-        if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and walkSpeed ~= 1.0  then
+        if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and walkSpeed ~= 1.0 and isPlayerAnimal then
             SetPedMoveRateOverride(ped, walkSpeed)
             Wait(0)
         else
