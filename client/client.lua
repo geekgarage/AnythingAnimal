@@ -2,8 +2,7 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
-local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed") == 1.0)
-print(walkSpeed)
+local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
@@ -113,6 +112,21 @@ CreateThread(function()
             Wait(1000)
         end
     end
+end)
+
+-- Read locally saved walk speed
+CreateThread(function()
+    local index = 0
+    while not kvpWalkSpeed and index < 30000 do
+        Wait(10)
+        local kvpWalkSpeed = GetResourceKvpString("AnythingAnimal_Speed")
+        index += 1
+    end
+    if not kvpWalkSpeed then
+        kvpWalkSpeed = 1.0
+    end
+    walkSpeed = tonumber(kvpWalkSpeed)
+    print(walkSpeed)
 end)
 
 -- Use adjusted general walk speed
