@@ -89,6 +89,7 @@ CreateThread(function()
     end
 end)
 
+-- Idlecam
 CreateThread(function()
     while Config.DisableIdleCamera do
         Wait(10000)
@@ -114,6 +115,7 @@ CreateThread(function()
     end
 end)
 
+-- Use adjusted general walk speed
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
