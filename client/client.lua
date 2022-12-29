@@ -3,6 +3,7 @@ local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
 local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
+print(walkSpeed)
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
@@ -112,18 +113,6 @@ CreateThread(function()
         end
     end
 end)
-
--- Walk speed
---[[ CreateThread(function()
-    local index = 0
-    while not kvpWalkSpeed and index < 30000 do
-        Wait(10)
-        local kvpWalkSpeed = GetResourceKvpString("AnythingAnimal_Speed")
-        index += 1
-    end
-    walkSpeed = tonumber(kvpWalkSpeed)
-    print(walkSpeed)
-end) ]]
 
 CreateThread(function()
     while true do
