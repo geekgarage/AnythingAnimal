@@ -2,7 +2,7 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
-local kvpWalkSpeed = GetResourceKvpString("AnythingAnimal_Speed")
+local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
