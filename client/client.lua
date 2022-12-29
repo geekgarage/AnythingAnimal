@@ -6,7 +6,6 @@ local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
 if not walkSpeed then
     walkSpeed = 1.0
 end
-print(walkSpeed)
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
