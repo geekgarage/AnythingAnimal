@@ -3,8 +3,6 @@ local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
 local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
-local adjustWalkSpd = false
-
 if not walkSpeed then
     walkSpeed = 1.0
 end
@@ -119,30 +117,12 @@ CreateThread(function()
     end
 end)
 
--- Use / adjust general walk speed
+-- Use adjusted general walk speed
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
         if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and walkSpeed ~= 1.0 and isPlayerAnimal then
             SetPedMoveRateOverride(ped, walkSpeed)
-            if IsControlPressed(0, 97) and adjustWalkSpd then
-                adjustWalkSpd = false
-                walkSpeed += 0.01
-                if TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal) then
-                    ShowNotification("WalkSpeed: " .. WalkSpeed)
-                end
-            elseif IsControlReleased(0, 97) and not adjustWalkSpd then
-                adjustWalkSpd = true
-            end
-            if IsControlPressed(0, 96) and adjustWalkSpd then
-                adjustWalkSpd = false
-                walkSpeed -= 0.01
-                if TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal) then
-                    ShowNotification("WalkSpeed: " .. WalkSpeed)
-                end
-            elseif IsControlReleased(0, 96) and not adjustWalkSpd then
-                adjustWalkSpd = true
-            end
             Wait(0)
         else
             Wait(1000)
