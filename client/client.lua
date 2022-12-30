@@ -133,7 +133,7 @@ CreateThread(function()
                 adjustWalkSpd = false
                 walkSpeed -= 0.01
                 TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
-            elseif and not adjustWalkSpd then
+            elseif not adjustWalkSpd then
                 adjustWalkSpd = true
             end
             Wait(0)
