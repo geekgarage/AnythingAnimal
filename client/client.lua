@@ -3,7 +3,7 @@ local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
 local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
-local stopReqMsg = "false"
+local stopReqMsg = false
 
 if not walkSpeed then
     walkSpeed = 1.0
@@ -133,10 +133,6 @@ CreateThread(function()
             elseif IsControlPressed(0, 97) then
                 if not stopReqMsg or stopReqMsg == "StopMax" and walkSpeed >= Config.WalkSpeedMin then
                     walkSpeed -= 0.01
-                    if not walkSpeed then
-                        print("BLOCK!")
-                        walkSpeed = 0.000000000000001
-                    end
                     TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
                 end
             end
@@ -147,17 +143,21 @@ CreateThread(function()
     end
 end)
 
+-- Add Chat command
 RegisterCommand('aaws', function(source, args, raw)
     TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal)
 end, false)
 
 TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpeedMin .. " to " .. Config.WalkSpeedMax)
 
+
+-- CB from server
 RegisterNetEvent('UpdWalkSpeed', function(speed, stopReq)
     walkSpeed = speed
     stopReqMsg = stopReq
-    SetResourceKvp("AnythingAnimal_Speed", walkSpeed)
+    SetResourceKvp("AnythingAnimal_Speed", tostring(walkSpeed))
 end)
+
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
