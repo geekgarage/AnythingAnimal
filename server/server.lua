@@ -13,8 +13,5 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal)
         stopReq = "StopMin"
     end
 
-    print(speed)
-    print(stopReq)
-
     TriggerClientEvent('UpdWalkSpeed', source, speed, stopReq)
 end)

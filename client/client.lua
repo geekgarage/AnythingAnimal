@@ -155,8 +155,6 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpee
 RegisterNetEvent('UpdWalkSpeed', function(speed, stopReq)
     walkSpeed = speed
     stopReqMsg = stopReq
-    print(walkSpeed)
-    print(stopReqMsg)
     SetResourceKvp("AnythingAnimal_Speed", tostring(walkSpeed))
 end)
 
