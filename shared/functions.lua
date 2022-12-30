@@ -16,3 +16,10 @@ function dogSwimAnim()
     loadAnimDict('creatures@rottweiler@swim@')
     TaskPlayAnim(PlayerPedId(), "creatures@rottweiler@swim@", "swim", 8.0, 8.0, -1, 51, 0, false, false, false)
 end
+
+
+function ShowNotification(text)
+    BeginTextCommandThefeedPost("STRING")
+    AddTextComponentSubstringPlayerName(text)
+    EndTextCommandThefeedPostTicker(false, true)
+end
