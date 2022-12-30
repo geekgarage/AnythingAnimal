@@ -1,5 +1,6 @@
 RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal)
     if not isAnimal then return end
+    if not speed then speed = 0 end
 
     if speed > Config.WalkSpeedMax then
         speed = Config.WalkSpeedMax

@@ -126,11 +126,9 @@ CreateThread(function()
             SetPedMoveRateOverride(ped, walkSpeed)
             if IsControlPressed(0, 96) then
                 walkSpeed += 0.01
-                print(walkSpeed)
                 TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
             elseif IsControlPressed(0, 97) then
                 walkSpeed -= 0.01
-                print(walkSpeed)
                 TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
             end
             Wait(0)
@@ -148,9 +146,6 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpee
 
 RegisterNetEvent('UpdWalkSpeed', function(speed)
     walkSpeed = speed
-    if not walkSpeed then
-        walkSpeed = 0.0000000001
-    end
     SetResourceKvp("AnythingAnimal_Speed", walkSpeed)
 end)
 
