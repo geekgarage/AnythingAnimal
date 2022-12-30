@@ -3,7 +3,7 @@ local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
 local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
-local stopReq = "false"
+local stopReqMsg = "false"
 
 if not walkSpeed then
     walkSpeed = 1.0
