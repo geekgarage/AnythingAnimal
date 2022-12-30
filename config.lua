@@ -29,7 +29,7 @@ Config = {
     SpeedMultiplierLand = 1.49, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
     SpeedMultiplierWater = 1.00, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
     -- 1.80 is far from full run speed but the max speed where the animation looks decent
-    WalkSpeedMin = 0.01, -- Set the adjustable walk speed minimum value
+    WalkSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
     WalkSpeedMax = 1.50, -- Set the adjustable walk speed maximum value
     MloRunSpeed = 1.80, -- Set the MLO/underground run speed 
 
