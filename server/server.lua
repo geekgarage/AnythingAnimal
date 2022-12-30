@@ -4,11 +4,7 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal)
     if speed > Config.WalkSpeedMax then
         speed = Config.WalkSpeedMax
     elseif speed < Config.WalkSpeedMin or not speed then
-        if not speed then
-            speed = 0.000000000000001
-        else
-            speed = Config.WalkSpeedMin
-        end
+        speed = Config.WalkSpeedMin
     end
 
     TriggerClientEvent('UpdWalkSpeed', source, speed)
