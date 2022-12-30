@@ -154,12 +154,12 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpee
 
 
 -- CB from server
-RegisterNetEvent('UpdWalkSpeed', function(speed, stopReq)
+RegisterNetEvent('UpdWalkSpeed', function(speed, allowReq)
     walkSpeed = speed
     SetResourceKvp("AnythingAnimal_Speed", tostring(walkSpeed))
-    canRequest = stopReq
+    print(walkSpeed)
+    canRequest = allowReq
 end)
-
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
