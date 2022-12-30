@@ -134,6 +134,7 @@ CreateThread(function()
                 if not stopReqMsg or stopReqMsg == "StopMax" and walkSpeed >= Config.WalkSpeedMin then
                     walkSpeed -= 0.01
                     if not walkSpeed then
+                        print("BLOCK!")
                         walkSpeed = 0.000000000000001
                     end
                     TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
