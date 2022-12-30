@@ -126,9 +126,11 @@ CreateThread(function()
             SetPedMoveRateOverride(ped, walkSpeed)
             if IsControlPressed(0, 96) then
                 walkSpeed += 0.01
+                print(walkSpeed)
                 TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
             elseif IsControlPressed(0, 97) then
                 walkSpeed -= 0.01
+                print(walkSpeed)
                 TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
             end
             Wait(0)
