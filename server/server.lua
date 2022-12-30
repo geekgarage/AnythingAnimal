@@ -4,14 +4,16 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal)
 
     if speed > Config.WalkSpeedMax then
         speed = Config.WalkSpeedMax
-        local stopReq = "StopMax"
+        stopReq = "StopMax"
     elseif speed < 0 then
         speed = 0
-        local stopReq = "StopMin"
+        stopReq = "StopMin"
     elseif speed < Config.WalkSpeedMin then
         speed = Config.WalkSpeedMin
-        local stopReq = "StopMin"
+        stopReq = "StopMin"
     end
 
+    print(stopReq)
+    
     TriggerClientEvent('UpdWalkSpeed', source, speed, stopReq)
 end)
