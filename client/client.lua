@@ -4,6 +4,7 @@ local pedMaxHealth = 200
 local pedAnimPlaying = false
 local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
 local canRequest = true
+local adjustDirection = "both"
 
 if not walkSpeed then
     walkSpeed = 1.0
@@ -126,13 +127,13 @@ CreateThread(function()
         if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and isPlayerAnimal then
             SetPedMoveRateOverride(ped, walkSpeed)
             if IsControlPressed(0, 96) then
-                if canRequest and walkSpeed <= Config.WalkSpeedMax then
+                if canRequest and adjustDirection ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
                     canRequest = false
                     walkSpeed += 0.01
                     TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
                 end
             elseif IsControlPressed(0, 97) then
-                if canRequest and walkSpeed >= Config.WalkSpeedMin then
+                if canRequest and adjustDirection ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
                     canRequest = false
                     walkSpeed -= 0.01
                     TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
@@ -154,8 +155,9 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpee
 
 
 -- CB from server
-RegisterNetEvent('UpdWalkSpeed', function(speed, allowReq)
+RegisterNetEvent('UpdWalkSpeed', function(speed, adjDir, allowReq)
     walkSpeed = speed
+    adjustDirection = adjDir
     SetResourceKvp("AnythingAnimal_Speed", tostring(walkSpeed))
     print(walkSpeed)
     canRequest = allowReq
