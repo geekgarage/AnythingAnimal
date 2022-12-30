@@ -127,11 +127,13 @@ CreateThread(function()
             SetPedMoveRateOverride(ped, walkSpeed)
             if IsControlPressed(0, 96) then
                 if not stopReqMsg or stopReqMsg == "StopMin" and walkSpeed <= Config.WalkSpeedMax then
+                    print("adjust +")
                     walkSpeed += 0.01
                     TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
                 end
             elseif IsControlPressed(0, 97) then
                 if not stopReqMsg or stopReqMsg == "StopMax" and walkSpeed >= Config.WalkSpeedMin then
+                    print("adjust -")
                     walkSpeed -= 0.01
                     TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
                 end
