@@ -124,19 +124,21 @@ end)
 CreateThread(function()
     while true do
         local ped = PlayerPedId()
-        if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) or IsControlPressed(0, 44) and isPlayerAnimal then
-            SetPedMoveRateOverride(ped, walkSpeed)
-            if IsControlPressed(0, 96) then
-                if canRequest and adjustDirection ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
-                    canRequest = false
-                    walkSpeed += 0.01
-                    TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
-                end
-            elseif IsControlPressed(0, 97) then
-                if canRequest and adjustDirection ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
-                    canRequest = false
-                    walkSpeed -= 0.01
-                    TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+        if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and isPlayerAnimal then
+            if IsControlReleased(0, 44) or IsControlPressed(0, 44) then
+                SetPedMoveRateOverride(ped, walkSpeed)
+                if IsControlPressed(0, 96) then
+                    if canRequest and adjustDirection ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
+                        canRequest = false
+                        walkSpeed += 0.01
+                        TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+                    end
+                elseif IsControlPressed(0, 97) then
+                    if canRequest and adjustDirection ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
+                        canRequest = false
+                        walkSpeed -= 0.01
+                        TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+                    end
                 end
             end
             Wait(0)
