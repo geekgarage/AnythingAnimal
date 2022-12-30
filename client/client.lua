@@ -3,6 +3,7 @@ local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
 local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
+local stopReqMsg = false
 
 if not walkSpeed then
     walkSpeed = 1.0
@@ -125,11 +126,15 @@ CreateThread(function()
         if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and isPlayerAnimal then
             SetPedMoveRateOverride(ped, walkSpeed)
             if IsControlPressed(0, 96) then
-                walkSpeed += 0.01
-                TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+                if not stopReqMsg or stopReqMsg == "StopMin" and walkSpeed <= Config.WalkSpeedMax then
+                    walkSpeed += 0.01
+                    TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+                end
             elseif IsControlPressed(0, 97) then
-                walkSpeed -= 0.01
-                TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+                if not stopReqMsg or stopReqMsg == "StopMax" and walkSpeed >= Config.WalkSpeedMin then
+                    walkSpeed -= 0.01
+                    TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+                end
             end
             Wait(0)
         else
@@ -138,16 +143,21 @@ CreateThread(function()
     end
 end)
 
+-- Add Chat command
 RegisterCommand('aaws', function(source, args, raw)
     TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal)
 end, false)
 
 TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpeedMin .. " to " .. Config.WalkSpeedMax)
 
-RegisterNetEvent('UpdWalkSpeed', function(speed)
+
+-- CB from server
+RegisterNetEvent('UpdWalkSpeed', function(speed, stopReq)
     walkSpeed = speed
-    SetResourceKvp("AnythingAnimal_Speed", walkSpeed)
+    stopReqMsg = stopReq
+    SetResourceKvp("AnythingAnimal_Speed", tostring(walkSpeed))
 end)
+
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
