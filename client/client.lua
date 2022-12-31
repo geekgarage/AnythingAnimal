@@ -2,8 +2,7 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
-DeleteResourceKvp('AnythingAnimal_Speed')
-local walkSpeed = GetResourceKvpFloat('AnythingAnimal_Speed')
+local walkSpeed = GetResourceKvpFloat('AnythingAnimal_Speed_Float')
 local canRequest = true
 local adjustDirection = "both"
 
@@ -143,7 +142,7 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpee
 RegisterNetEvent('UpdWalkSpeed', function(speed, adjDir, allowReq)
     walkSpeed = speed
     adjustDirection = adjDir
-    SetResourceKvpFloat("AnythingAnimal_Speed", walkSpeed)
+    SetResourceKvpFloat("AnythingAnimal_Speed_Float", walkSpeed)
     canRequest = allowReq
 end)
 
