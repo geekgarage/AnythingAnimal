@@ -31,7 +31,7 @@ Config = {
     -- 1.80 is far from full run speed but the max speed where the animation looks decent
     WalkSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
     WalkSpeedMax = 1.50, -- Set the adjustable walk speed maximum value
-    MloRunSpeed = 1.50, -- Set the MLO/underground run speed 
+    MloRunSpeed = 1.00, -- Set the MLO/underground run speed 
 
 
     -- Idle Camera
