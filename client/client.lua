@@ -44,7 +44,9 @@ CreateThread(function()
 
             local ped = PlayerPedId()
             local player = PlayerId()
-            local pedCurrentHealth = GetEntityHealth(ped)     
+            local pedCurrentHealth = GetEntityHealth(ped)
+            local xyz = GetEntityCoords(ped)
+            print(IsCollisionMarkedOutside(xyz))
             
             if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
                 local tempHealth = pedCurrentHealth + Config.HealthPointsRegenerated
