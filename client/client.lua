@@ -2,7 +2,7 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedAnimPlaying = false
-local walkSpeed = GetExternalKvpFloat('AnythingAnimal', 'AnythingAnimal_Speed')
+local walkSpeed = GetResourceKvpFloat('AnythingAnimal_Speed')
 local canRequest = true
 local adjustDirection = "both"
 
