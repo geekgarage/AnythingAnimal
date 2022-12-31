@@ -40,39 +40,6 @@ CreateThread(function()
     end
 end)
 
--- Land and Water fixes
-CreateThread(function()
-    while true do
-        Wait(1000)
-        if isPlayerAnimal then
-
-            local ped = PlayerPedId()
-            local player = PlayerId()
-
-            SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
-            ResetPlayerStamina(player)
-
-            if IsEntityInWater(ped) == 1 then -- If In Water
-                SetPlayerSprint(player, false)
-                if not pedAnimPlaying then
-                    SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
-                    SetSwimMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
-                    --dogSwimAnim()
-                    pedAnimPlaying = true
-                end
-            else
-                SetPlayerSprint(player, true)
-                if pedAnimPlaying then
-                    SetPedCanRagdoll(ped, true) -- Enable ragdoll again
-                    SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierLand) -- Make animals normal speed in water
-                    --ClearPedTasks(ped)
-                    pedAnimPlaying = false
-                end
-            end
-        end
-    end
-end)
-
 -- Health Fixes
 CreateThread(function()
     while Config.UseHealthRegen do
@@ -105,44 +72,58 @@ CreateThread(function()
     end
 end)
 
--- MLO and underground run speed
+
 CreateThread(function()
     while true do
-        local ped = PlayerPedId()
-        local xyz = GetEntityCoords(ped)
+        -- Land and Water fixes
+        if isPlayerAnimal then
+            local ped = PlayerPedId()
+            local player = PlayerId()
+            local xyz = GetEntityCoords(ped)
 
-        if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) and isPlayerAnimal then
-            SetPedMoveRateOverride(ped, Config.MloRunSpeed)
-            Wait(0)
-        else
-            Wait(1000)
-        end
-    end
-end)
+            SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
+            ResetPlayerStamina(player)
 
--- Use / adjust general walk speed
-CreateThread(function()
-    while true do
-        local ped = PlayerPedId()
-        if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) and isPlayerAnimal then
-            SetPedMoveRateOverride(ped, walkSpeed)
-            if IsControlPressed(0, 96) then
-                if canRequest and adjustDirection ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
-                    canRequest = false
-                    walkSpeed += 0.01
-                    TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+            if IsEntityInWater(ped) == 1 then -- If In Water
+                SetPlayerSprint(player, false)
+                if not pedAnimPlaying then
+                    SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
+                    SetSwimMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
+                    --dogSwimAnim()
+                    pedAnimPlaying = true
                 end
-            elseif IsControlPressed(0, 97) then
-                if canRequest and adjustDirection ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
-                    canRequest = false
-                    walkSpeed -= 0.01
-                    TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+            else
+                SetPlayerSprint(player, true)
+                if pedAnimPlaying then
+                    SetPedCanRagdoll(ped, true) -- Enable ragdoll again
+                    SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierLand) -- Make animals normal speed in water
+                    --ClearPedTasks(ped)
+                    pedAnimPlaying = false
                 end
             end
-            Wait(0)
-        else
-            Wait(1000)
+            -- MLO and underground run speed fix
+            if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
+                SetPedMoveRateOverride(ped, Config.MloRunSpeed)
+            end
+            -- Use / adjust general walk speed
+            if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
+                SetPedMoveRateOverride(ped, walkSpeed)
+                if IsControlPressed(0, 96) then
+                    if canRequest and adjustDirection ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
+                        canRequest = false
+                        walkSpeed += 0.01
+                        TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+                    end
+                elseif IsControlPressed(0, 97) then
+                    if canRequest and adjustDirection ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
+                        canRequest = false
+                        walkSpeed -= 0.01
+                        TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal)
+                    end
+                end
+            end
         end
+        Wait(0)
     end
 end)
 
