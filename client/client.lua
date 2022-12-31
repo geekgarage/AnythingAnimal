@@ -6,10 +6,6 @@ local walkSpeed = tonumber(GetResourceKvpString("AnythingAnimal_Speed"))
 local canRequest = true
 local adjustDirection = "both"
 
-if not walkSpeed then
-    walkSpeed = 1.0
-end
-
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
 end
@@ -74,6 +70,9 @@ end)
 
 
 CreateThread(function()
+    if not walkSpeed then
+        walkSpeed = 1.0
+    end
     while true do
         -- Land and Water fixes
         if isPlayerAnimal then
@@ -122,8 +121,10 @@ CreateThread(function()
                     end
                 end
             end
+            Wait(0)
+        else
+            Wait(5000)
         end
-        Wait(0)
     end
 end)
 
