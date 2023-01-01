@@ -30,13 +30,13 @@ Config = {
     RunSprintMultiplier = 1.00, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
 
     WalkSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
-    WalkSpeedMax = 1.20, -- Set the adjustable walk speed maximum value
+    WalkSpeedMax = 2.00, -- Set the adjustable walk speed maximum value
 
-    InsideRunSpeedMin = 1.20, -- Set the adjustable walk speed minimum value
-    InsideRunSpeedMax = 1.90, -- Set the adjustable walk speed maximum value
+    InsideRunSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
+    InsideRunSpeedMax = 2.00, -- Set the adjustable walk speed maximum value
 
-    OutsideRunSpeedMin = 1.20, -- Set the adjustable walk speed minimum value
-    OutsideRunSpeedMax = 1.90, -- Set the adjustable walk speed maximum value
+    OutsideRunSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
+    OutsideRunSpeedMax = 2.00, -- Set the adjustable walk speed maximum value
 
 
     -- Idle Camera

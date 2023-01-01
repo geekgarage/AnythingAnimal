@@ -2,6 +2,10 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedRunOnce = false
+DeleteResourceKvp('AnythingAnimal_Speed_Float')
+DeleteResourceKvp('AnythingAnimal_WalkSpeed_Float')
+DeleteResourceKvp('AnythingAnimal_InsideRunSpeed_Float')
+DeleteResourceKvp('AnythingAnimal_OutsideRunSpeed_Float')
 local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local insideRunSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
 local outsideRunSpeed = GetResourceKvpFloat('AnythingAnimal_OutsideRunSpeed_Float')
@@ -71,13 +75,13 @@ end)
 -- Main Thread
 CreateThread(function()
     if not walkSpeed then
-        walkSpeed = (Config.WalkSpeedMin + Config.WalkSpeedMax) / 2
+        walkSpeed = (Config.WalkSpeedMin+Config.WalkSpeedMax)/2
     end
     if not insideRunSpeed then
-        insideRunSpeed = (Config.InsideRunSpeedMin + Config.InsideRunSpeedMax) / 2
+        insideRunSpeed = (Config.InsideRunSpeedMin+Config.InsideRunSpeedMax)/2
     end
     if not outsideRunSpeed then
-        outsideRunSpeed = (Config.OutsideRunSpeedMin + Config.OutsideRunSpeedMax) / 2
+        outsideRunSpeed = (Config.OutsideRunSpeedMin+Config.OutsideRunSpeedMax)/2
     end
     while true do
         -- Land and Water fixes
@@ -184,14 +188,17 @@ RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowRe
         walkSpeed = speed
         adjustDirectionWalk = adjDir
         SetResourceKvpFloat("AnythingAnimal_WalkSpeed_Float", walkSpeed)
+        print("Walk Speed: " .. tostring(walkSpeed))
     elseif typeAdjust == "inrun" then
         insideRunSpeed = speed
         adjustDirectionInsideRun = adjDir
         SetResourceKvpFloat("AnythingAnimal_InsideRunSpeed_Float", insideRunSpeed)
+        print("Inside Run Speed: " .. tostring(insideRunSpeed))
     elseif typeAdjust == "outrun" then
         outsideRunSpeed = speed
         adjustDirectionOutsideRun = adjDir
         SetResourceKvpFloat("AnythingAnimal_OutsideRunSpeed_Float", outsideRunSpeed)
+        print("Outside Run Speed: " .. tostring(outsideRunSpeed))
     end
     canRequestSpeed = allowReq
 end)
