@@ -2,7 +2,7 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
     if not isAnimal then return end
     local adjDir = "Both"
 
-    if typeAdj = "walk" then
+    if typeAdj == "walk" then
         if speed > Config.WalkSpeedMax then
             speed = Config.WalkSpeedMax
             adjDir = "NotMax"
@@ -13,7 +13,7 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
             speed = Config.WalkSpeedMin
             adjDir = "NotMin"
         end
-    elseif typeAdj = "inrun" then
+    elseif typeAdj == "inrun" then
         if speed > Config.InsideRunSpeedMax then
             speed = Config.InsideRunSpeedMax
             adjDir = "NotMax"
@@ -24,7 +24,7 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
             speed = Config.InsideRunSpeedMin
             adjDir = "NotMin"
         end
-    elseif typeAdj = "outrun" then
+    elseif typeAdj == "outrun" then
         if speed > Config.OutsideRunSpeedMax then
             speed = Config.OutsideRunSpeedMax
             adjDir = "NotMax"
