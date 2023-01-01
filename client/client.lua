@@ -48,7 +48,6 @@ CreateThread(function()
             local xyz = GetEntityCoords(ped)
             print(IsCollisionMarkedOutside(xyz))
             print(IsPedRunningMeleeTask(ped)) -- FIX RUNSPEED 
-            print(GetNetworkWalkMode())
             print(GetPedMovementClipset())
             print(GetInteriorAtCoords(xyz))
             print("-------------------------")
