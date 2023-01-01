@@ -94,6 +94,7 @@ CreateThread(function()
 
             if IsEntityInWater(ped) == 1 then -- If In Water
                 if not pedRunOnce then
+                    print("in water")
                     --SetPlayerSprint(player, false)
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
                     --SetSwimMultiplierForPlayer(player, Config.SwimMultiplier) -- Make animals normal speed in water
@@ -101,7 +102,6 @@ CreateThread(function()
                     pedRunOnce = true
                 end
             else
-                print("not in water")
                 if pedRunOnce then -- If Not In Water
                     --SetPlayerSprint(player, true)
                     SetPedCanRagdoll(ped, true) -- Enable ragdoll again
