@@ -171,20 +171,28 @@ TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpee
 RegisterCommand('aais', function(source, args, raw)
     TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "inrun")
 end, false)
-TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.InsideRunSpeedMin .. " to " .. Config.InsideRunSpeedMax)
+TriggerEvent("chat:addSuggestion", "/aais", "Set inside run speed " .. Config.InsideRunSpeedMin .. " to " .. Config.InsideRunSpeedMax)
+
+RegisterCommand('aars', function(source, args, raw)
+    TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "inrun")
+end, false)
+TriggerEvent("chat:addSuggestion", "/aars", "Set outside run speed " .. Config.OutsideRunSpeedMin .. " to " .. Config.OutsideRunSpeedMax)
 
 -- CB from server
 RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowReq)
-    if typeAdjust = "walk" then
+    if typeAdjust == "walk" then
         walkSpeed = speed
-    elseif typeAdjust = "inrun" then
+        adjustDirectionWalk = adjDir
+        SetResourceKvpFloat("AnythingAnimal_WalkSpeed_Float", walkSpeed)
+    elseif typeAdjust == "inrun" then
         insideRunSpeed = speed
-    elseif typeAdjust = "outrun" then
+        adjustDirectionInsideRun = adjDir
+        SetResourceKvpFloat("AnythingAnimal_InsideRunSpeed_Float", insideRunSpeed)
+    elseif typeAdjust == "outrun" then
         outsideRunSpeed = speed
+        adjustDirectionOutsideRun = adjDir
+        SetResourceKvpFloat("AnythingAnimal_OutsideRunSpeed_Float", outsideRunSpeed)
     end
-
-    adjustDirection = adjDir
-    SetResourceKvpFloat("AnythingAnimal_Speed_Float", walkSpeed)
     canRequestSpeed = allowReq
 end)
 
