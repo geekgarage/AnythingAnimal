@@ -97,6 +97,7 @@ CreateThread(function()
                     pedRunOnce = true
                 end
             else
+                print("not in water")
                 if pedRunOnce then -- If Not In Water
                     --SetPlayerSprint(player, true)
                     SetPedCanRagdoll(ped, true) -- Enable ragdoll again
