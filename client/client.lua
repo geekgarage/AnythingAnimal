@@ -18,8 +18,6 @@ CreateThread(function()
 
         local ped = PlayerPedId()
         local player = PlayerId()
-
-        -- Check if player is animal 
         local PlayerPedHash = GetEntityModel(ped)
         local tempAnimalStatus = false
 
@@ -32,6 +30,8 @@ CreateThread(function()
         isPlayerAnimal = tempAnimalStatus
         if isPlayerAnimal then
             SetPlayerLockonRangeOverride(player, 50.0)
+            SetPedCombatRange(ped, 2)
+            ResetPlayerStamina(player)
         end
     end
 end)
@@ -41,14 +41,6 @@ CreateThread(function()
     while Config.UseHealthRegen do
         Wait(Config.HealthPointsTimer)
         if isPlayerAnimal then
-
-            local ped = PlayerPedId()
-            local player = PlayerId()
-            local pedCurrentHealth = GetEntityHealth(ped)
-            local xyz = GetEntityCoords(ped)
-            print(IsCollisionMarkedOutside(xyz))
-            --print()
-            print("-------------------------")
             if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
                 local tempHealth = pedCurrentHealth + Config.HealthPointsRegenerated
                 if tempHealth > pedMaxHealth then
@@ -84,7 +76,6 @@ CreateThread(function()
             local xyz = GetEntityCoords(ped)
 
             SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
-            ResetPlayerStamina(player)
 
             if IsEntityInWater(ped) == 1 then -- If In Water
                 SetPlayerSprint(player, false)
@@ -108,7 +99,7 @@ CreateThread(function()
                 SetPedMoveRateOverride(ped, Config.MloRunSpeed)
             end
             -- Use / adjust general walk speed
-            if IsPedWalking(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
+            if IsPedWalking(ped) and IsPedOnFoot(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
                 SetPedMoveRateOverride(ped, walkSpeed)
                 if IsControlPressed(0, 96) then
                     if canRequest and adjustDirection ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
@@ -146,6 +137,25 @@ RegisterNetEvent('UpdWalkSpeed', function(speed, adjDir, allowReq)
     SetResourceKvpFloat("AnythingAnimal_Speed_Float", walkSpeed)
     canRequest = allowReq
 end)
+
+-- DEBUG COMMAND
+RegisterCommand('aadebug', function(source, args, raw)
+    local ped = PlayerPedId()
+    local player = PlayerId()
+    local pedCurrentHealth = GetEntityHealth(ped)
+    local xyz = GetEntityCoords(ped)
+    print(IsCollisionMarkedOutside(xyz))
+    print(GetNetworkWalkMode())
+    print(GetPedMovementClipset(ped))
+    print(GetEntityLodDist(ped))
+    print(HasCollisionLoadedAroundEntity())
+    print(IsPedOnFoot(ped))
+    print(IsPedUsingAnyScenario(ped))
+    print(GetWaterHeight(xyz.x,xyz.y,xyz.z,args[1]))
+    print(GetWaterHeightNoWaves(xyz.x,xyz.y,xyz.z,args[1]))
+    print("-------------------------")
+    RenderFakePickupGlow(xyz.x,xyz.y,xyz.z,args[1])
+end, false)
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
 -- DEBUG: print(exports['AnythingAnimal']:getIsPlayerAnimal())
