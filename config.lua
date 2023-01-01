@@ -23,15 +23,20 @@ Config = {
     -- Health
     UseHealthRegen = true,       -- Enable health regeneration?
     HealthPointsRegenerated = 1, -- Health Points regenerated per second?
-    HealthPointsTimer = 1000,    -- How often to regenerate in milliseconds? (no negative values)
+    HealthPointsTimer = 2,    -- How often to regenerate in seconds? (no negative values)
 
     -- Speed 
-    SpeedMultiplierLand = 1.49, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
-    SpeedMultiplierWater = 1.49, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
-    -- 1.80 is far from full run speed but the max speed where the animation looks decent
+    SwimMultiplier = 1.00, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
+    RunSprintMultiplier = 1.00, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
+
     WalkSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
-    WalkSpeedMax = 1.50, -- Set the adjustable walk speed maximum value
-    MloRunSpeed = 1.00, -- Set the MLO/underground run speed 
+    WalkSpeedMax = 1.20, -- Set the adjustable walk speed maximum value
+
+    InsideRunSpeedMin = 1.20, -- Set the adjustable walk speed minimum value
+    InsideRunSpeedMax = 1.90, -- Set the adjustable walk speed maximum value
+
+    OutsideRunSpeedMin = 1.20, -- Set the adjustable walk speed minimum value
+    OutsideRunSpeedMax = 1.90, -- Set the adjustable walk speed maximum value
 
 
     -- Idle Camera
