@@ -47,9 +47,7 @@ CreateThread(function()
             local pedCurrentHealth = GetEntityHealth(ped)
             local xyz = GetEntityCoords(ped)
             print(IsCollisionMarkedOutside(xyz))
-            print(IsPedRunningMeleeTask(ped)) -- FIX RUNSPEED 
-            print(GetPedMovementClipset())
-            print(GetInteriorAtCoords(xyz))
+            --print()
             print("-------------------------")
             if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
                 local tempHealth = pedCurrentHealth + Config.HealthPointsRegenerated
