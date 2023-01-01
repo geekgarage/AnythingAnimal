@@ -84,7 +84,7 @@ CreateThread(function()
                     --SetPlayerSprint(player, false)
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
                     SetSwimMultiplierForPlayer(player, Config.SpeedMultiplierWater)
-                    ForcePedMotionState(ped, -1855028596, 0, 0, 0)
+                    --ForcePedMotionState(ped, -1855028596, 0, 0, 0)
                     pedRunOnce = true
                 end
             else
