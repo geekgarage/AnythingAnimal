@@ -1,7 +1,7 @@
 local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
-local pedAnimPlaying = false
+local pedRunOnce = false
 local walkSpeed = GetResourceKvpFloat('AnythingAnimal_Speed_Float')
 local canRequest = true
 local adjustDirection = "both"
@@ -80,20 +80,20 @@ CreateThread(function()
             SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
 
             if IsEntityInWater(ped) == 1 then -- If In Water
-                SetPlayerSprint(player, false)
-                if not pedAnimPlaying then
+                if not pedRunOnce then
+                    --SetPlayerSprint(player, false)
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
-                    SetSwimMultiplierForPlayer(player, Config.SpeedMultiplierWater) -- Make animals normal speed in water
-                    --dogSwimAnim()
-                    pedAnimPlaying = true
+                    SetSwimMultiplierForPlayer(player, Config.SpeedMultiplierWater)
+                    ForcePedMotionState(ped, -1855028596, 0, 0, 0)
+                    pedRunOnce = true
                 end
             else
-                SetPlayerSprint(player, true)
-                if pedAnimPlaying then
+                if pedRunOnce then
+                    --SetPlayerSprint(player, true)
                     SetPedCanRagdoll(ped, true) -- Enable ragdoll again
                     SetRunSprintMultiplierForPlayer(player, Config.SpeedMultiplierLand) -- Make animals normal speed in water
                     --ClearPedTasks(ped)
-                    pedAnimPlaying = false
+                    pedRunOnce = false
                 end
             end
             -- MLO and underground run speed fix
@@ -155,7 +155,6 @@ RegisterCommand('aadebug', function(source, args, raw)
     print(GetWaterHeight(xyz.x,xyz.y,xyz.z,args[1]))
     print(GetWaterHeightNoWaves(xyz.x,xyz.y,xyz.z,args[1]))
     print("-------------------------")
-    RenderFakePickupGlow(xyz.x,xyz.y,xyz.z,args[1])
 end, false)
 
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
