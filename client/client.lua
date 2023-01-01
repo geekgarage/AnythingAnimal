@@ -139,7 +139,6 @@ RegisterNetEvent('UpdWalkSpeed', function(speed, adjDir, allowReq)
 end)
 
 -- DEBUG COMMAND
-
 RegisterCommand('aadebug', function(source, args, raw)
     --local player = PlayerId()
     local ped = PlayerPedId()
