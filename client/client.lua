@@ -41,6 +41,7 @@ CreateThread(function()
     while Config.UseHealthRegen do
         Wait(Config.HealthPointsTimer)
         if isPlayerAnimal then
+            local ped = PlayerPedId()
             if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
                 local tempHealth = pedCurrentHealth + Config.HealthPointsRegenerated
                 if tempHealth > pedMaxHealth then
