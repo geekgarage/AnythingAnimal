@@ -142,7 +142,7 @@ end)
 
 -- DEBUG COMMAND
 RegisterCommand('aadebug', function(source, args, raw)
-    player = PlayerId()
+    local player = PlayerId()
     local ped = PlayerPedId()
     local xyz = GetEntityCoords(ped)
     print(isPlayerAnimal)
