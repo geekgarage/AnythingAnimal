@@ -141,9 +141,8 @@ end)
 -- DEBUG COMMAND
 
 RegisterCommand('aadebug', function(source, args, raw)
+    --local player = PlayerId()
     local ped = PlayerPedId()
-    local player = PlayerId()
-    local pedCurrentHealth = GetEntityHealth(ped)
     local xyz = GetEntityCoords(ped)
     print(IsCollisionMarkedOutside(xyz))
     print(GetNetworkWalkMode())
