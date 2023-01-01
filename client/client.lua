@@ -17,7 +17,6 @@ CreateThread(function()
         Wait(1000)
 
         local ped = PlayerPedId()
-        local player = PlayerId()
         local PlayerPedHash = GetEntityModel(ped)
         local tempAnimalStatus = false
 
@@ -29,6 +28,7 @@ CreateThread(function()
         end
         isPlayerAnimal = tempAnimalStatus
         if isPlayerAnimal then
+            local player = PlayerId()
             SetPlayerLockonRangeOverride(player, 50.0)
             SetPedCombatRange(ped, 2)
             ResetPlayerStamina(player)
@@ -42,6 +42,7 @@ CreateThread(function()
         Wait(Config.HealthPointsTimer)
         if isPlayerAnimal then
             local ped = PlayerPedId()
+            local pedCurrentHealth = GetEntityHealth(ped)
             if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
                 local tempHealth = pedCurrentHealth + Config.HealthPointsRegenerated
                 if tempHealth > pedMaxHealth then
@@ -141,9 +142,10 @@ end)
 
 -- DEBUG COMMAND
 RegisterCommand('aadebug', function(source, args, raw)
-    --local player = PlayerId()
+    player = PlayerId()
     local ped = PlayerPedId()
     local xyz = GetEntityCoords(ped)
+    print(isPlayerAnimal)
     print(IsCollisionMarkedOutside(xyz))
     print(GetNetworkWalkMode())
     print(GetPedMovementClipset(ped))
