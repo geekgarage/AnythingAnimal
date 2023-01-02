@@ -97,6 +97,7 @@ CreateThread(function()
                     SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
                     --SetPlayerSprint(player, false)
+                    print("In Water")
                     runOnce = true
                 end
                 SetPedMoveRateOverride(ped, swimSpeed)
