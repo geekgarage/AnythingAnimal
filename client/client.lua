@@ -84,6 +84,9 @@ CreateThread(function()
     if not outsideRunSpeed then
         outsideRunSpeed = Config.OutsideRunSpeedMin
     end
+    if not swimSpeed then
+        swimSpeed = Config.SwimSpeedMin
+    end
     while true do
         -- Land and Water fixes
         if isPlayerAnimal then
