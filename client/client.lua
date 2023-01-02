@@ -128,13 +128,13 @@ CreateThread(function()
                         if canRequestSpeed and adjustDirection ~= "NotMax" and outsideRunSpeed <= Config.OutsideRunSpeedMax then
                             canRequestSpeed = false
                             outsideRunSpeed += 0.01
-                            TriggerServerEvent('VerifyEmoteSpeed', outsideRunSpeed, isPlayerAnimal, "inrun")
+                            TriggerServerEvent('VerifyEmoteSpeed', outsideRunSpeed, isPlayerAnimal, "outrun")
                         end
                     elseif IsControlPressed(0, 97) then
                         if canRequestSpeed and adjustDirection ~= "NotMin" and outsideRunSpeed >= Config.OutsideRunSpeedMin then
                             canRequestSpeed = false
                             outsideRunSpeed -= 0.01
-                            TriggerServerEvent('VerifyEmoteSpeed', outsideRunSpeed, isPlayerAnimal, "inrun")
+                            TriggerServerEvent('VerifyEmoteSpeed', outsideRunSpeed, isPlayerAnimal, "outrun")
                         end
                     end
                 elseif IsPedWalking(ped) and IsPedOnFoot(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
