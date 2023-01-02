@@ -2,10 +2,6 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local pedMaxHealth = 200
 local pedRunOnce = false
-DeleteResourceKvp('AnythingAnimal_Speed_Float')
-DeleteResourceKvp('AnythingAnimal_WalkSpeed_Float')
-DeleteResourceKvp('AnythingAnimal_InsideRunSpeed_Float')
-DeleteResourceKvp('AnythingAnimal_OutsideRunSpeed_Float')
 local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local insideRunSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
 local outsideRunSpeed = GetResourceKvpFloat('AnythingAnimal_OutsideRunSpeed_Float')
@@ -75,13 +71,13 @@ end)
 -- Main Thread
 CreateThread(function()
     if not walkSpeed then
-        walkSpeed = (Config.WalkSpeedMin+Config.WalkSpeedMax)/2
+        walkSpeed = Config.WalkSpeedMin
     end
     if not insideRunSpeed then
-        insideRunSpeed = (Config.InsideRunSpeedMin+Config.InsideRunSpeedMax)/2
+        insideRunSpeed = Config.InsideRunSpeedMin
     end
     if not outsideRunSpeed then
-        outsideRunSpeed = (Config.OutsideRunSpeedMin+Config.OutsideRunSpeedMax)/2
+        outsideRunSpeed = Config.OutsideRunSpeedMin
     end
     while true do
         -- Land and Water fixes
