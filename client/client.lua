@@ -188,17 +188,17 @@ RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowRe
         walkSpeed = speed
         adjustDirectionWalk = adjDir
         SetResourceKvpFloat("AnythingAnimal_WalkSpeed_Float", walkSpeed)
-        print("Walk Speed: " .. tostring(walkSpeed))
+        print("Walk Speed: " .. walkSpeed)
     elseif typeAdjust == "inrun" then
         insideRunSpeed = speed
         adjustDirectionInsideRun = adjDir
         SetResourceKvpFloat("AnythingAnimal_InsideRunSpeed_Float", insideRunSpeed)
-        print("Inside Run Speed: " .. tostring(insideRunSpeed))
+        print("Inside Run Speed: " .. insideRunSpeed)
     elseif typeAdjust == "outrun" then
         outsideRunSpeed = speed
         adjustDirectionOutsideRun = adjDir
         SetResourceKvpFloat("AnythingAnimal_OutsideRunSpeed_Float", outsideRunSpeed)
-        print("Outside Run Speed: " .. tostring(outsideRunSpeed))
+        print("Outside Run Speed: " .. outsideRunSpeed)
     end
     canRequestSpeed = allowReq
 end)
