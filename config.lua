@@ -35,7 +35,7 @@ Config = {
     OutsideRunSpeedMin = 0.50, -- Set the adjustable walk speed minimum value
     OutsideRunSpeedMax = 1.30, -- Set the adjustable walk speed maximum value
 
-    SwimSpeedMin = 0.10, -- Set the adjustable swim speed minimum value
+    SwimSpeedMin = 0.20, -- Set the adjustable swim speed minimum value
     SwimSpeedMax = 0.65, -- Set the adjustable swim speed maximum value
 
     -- Idle Camera

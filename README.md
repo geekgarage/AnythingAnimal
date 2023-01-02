@@ -11,7 +11,7 @@ The current script doeas the following
 - Animals won't die instantly in water
 - Disable ragdoll of animals in water
 - Give animals human speed in water
-- Adjust normal walk speed using command /aaws x.yz or while walking using NUM+/- or mouse scroll
+- Adjust movement speed using command /aaws x.yz (walk), /aais x.yz (run inside), /aaos x.yz (run outside) or /aass x.yz (swim) or while moving using NUM+/- or mouse scroll
 - "Run" in MLO and in underground
 
 Add to server and 'ensure AnythingAnimal' in server config. 
