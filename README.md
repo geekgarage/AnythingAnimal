@@ -2,9 +2,9 @@
 
 Fully standalone script, is not dependant on any framework
 
-The goal of this script is to allow players to be animals. This is especially great to include people with some sort of disabillity who cant for some reason play normal RP where they need to talk to people
+The goal of this script is to allow players to be animals. This is especially great to include people with some sort of disabillity who can't, for some reason, play RP where they need to talk to people.
 
-The current script doeas the following
+The current script does the following
 - Health regen (Enable/Disable in config)
 - Unlimited stamina (Enable/Disable in config)
 - Animals won't die instantly in water
@@ -17,7 +17,7 @@ The current script doeas the following
   * /aass x.yz (swim)
   * Or while moving using NUM+/- or mouse scroll
   * Adjust limits in config
-- Option to disable Idlecam (preferred) as is will mess with voice comms when activated and you could miss out of important information
+- Option to disable Idlecam (preferred) as it will mess with voice when activated and you could miss out of important conversation
 
 Add to server and 'ensure AnythingAnimal' in server config. 
 If running QB-Core just place the script in [standalone] category folder
