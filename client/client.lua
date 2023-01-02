@@ -238,8 +238,8 @@ RegisterCommand('aadebug', function(source, args, raw)
     print(playerRotation)
     SetEntityRotation(
         ped,
-        (playerRotation.z-playerRotation.z),
-        playerRotation.x,
+        playerRotation.z,
+        (playerRotation.x-playerRotation.x),
         playerRotation.y,
         2,
         true
