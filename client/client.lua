@@ -38,7 +38,9 @@ CreateThread(function()
             local player = PlayerId()
             SetPlayerLockonRangeOverride(player, 50.0)
             SetPedCombatRange(ped, 2)
-            ResetPlayerStamina(player)
+            if Config.UseStaminaReset then
+                ResetPlayerStamina(player)
+            end
         end
         Wait(1000)
     end
