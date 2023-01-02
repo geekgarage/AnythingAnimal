@@ -91,8 +91,6 @@ CreateThread(function()
             local player = PlayerId()
             local xyz = GetEntityCoords(ped)
 
-            print(IsMoveBlendRatioWalking(ped))
-
             if IsEntityInWater(ped) == 1 then -- If In Water
                 if not runOnce then
                     SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
