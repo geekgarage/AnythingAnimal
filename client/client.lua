@@ -90,18 +90,17 @@ CreateThread(function()
             local ped = PlayerPedId()
             local player = PlayerId()
             local xyz = GetEntityCoords(ped)
-            local inWater, currentWaterHeight = TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,0)
+            local inWater, currentWaterHeight = TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,1)
+            local playerVelocity = GetEntityVelocity(ped)
 
-            if inWater == 1 then -- If In Water
+            if inWater == 1 or IsEntityInWater(ped) then -- If In Water
                 if not runOnce then
                     SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
-                    --SetPlayerSprint(player, false)
-                    print("In Water")
                     runOnce = true
                 end
                 SetPedMoveRateOverride(ped, swimSpeed)
-                --SetEntityVelocity(ped,0,0,(xyz.z-currentWaterHeight))
+                SetEntityVelocity(ped,playerVelocity.x,playerVelocity.y,(xyz.z-currentWaterHeight))
                 if IsControlPressed(0, 96) then
                     if canRequestSpeedSwim and adjustDirectionSwim ~= "NotMax" and swimSpeed <= Config.SwimSpeedMax then
                         canRequestSpeedSwim = false
