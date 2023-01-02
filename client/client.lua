@@ -91,7 +91,6 @@ CreateThread(function()
             local player = PlayerId()
             local xyz = GetEntityCoords(ped)
             local inWater, currentWaterHeight = TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,1)
-            local playerVelocity = GetEntityVelocity(ped)
 
             if inWater == 1 or IsEntityInWater(ped) then -- If In Water
                 if not runOnce then
@@ -100,7 +99,7 @@ CreateThread(function()
                     runOnce = true
                 end
                 SetPedMoveRateOverride(ped, swimSpeed)
-                SetEntityVelocity(ped,playerVelocity.x,playerVelocity.y,(xyz.z-currentWaterHeight))
+                SetEntityVelocity(ped,0,0,(xyz.z-currentWaterHeight))
                 if IsControlPressed(0, 96) then
                     if canRequestSpeedSwim and adjustDirectionSwim ~= "NotMax" and swimSpeed <= Config.SwimSpeedMax then
                         canRequestSpeedSwim = false
