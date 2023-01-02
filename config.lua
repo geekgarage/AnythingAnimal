@@ -26,7 +26,7 @@ Config = {
     HealthPointsTimer = 2,    -- How often to regenerate in seconds? (no negative values)
 
     --Stamina
-    UseStaminaReset = true -- Resets stamina to full every second
+    UseStaminaReset = true, -- Resets stamina to full every second
 
     -- Speed 
     WalkSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
