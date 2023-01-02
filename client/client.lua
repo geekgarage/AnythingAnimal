@@ -16,11 +16,9 @@ for _, v in ipairs(AnimalPed) do
 end
 listToNil(AnimalPed)
 
--- Is Player Animal
+-- Is Player Animal & Static Updates
 CreateThread(function()
     while true do
-        Wait(1000)
-
         local ped = PlayerPedId()
         local PlayerPedHash = GetEntityModel(ped)
         local tempAnimalStatus = false
@@ -33,18 +31,19 @@ CreateThread(function()
         end
         isPlayerAnimal = tempAnimalStatus
         if isPlayerAnimal then
+            -- Static Updates
             local player = PlayerId()
             SetPlayerLockonRangeOverride(player, 50.0)
             SetPedCombatRange(ped, 2)
             ResetPlayerStamina(player)
         end
+        Wait(1000)
     end
 end)
 
 -- Health Fixes
 CreateThread(function()
     while Config.UseHealthRegen do
-        Wait(Config.HealthPointsTimer*1000)
         if isPlayerAnimal then
             local ped = PlayerPedId()
             local pedCurrentHealth = GetEntityHealth(ped)
@@ -56,17 +55,18 @@ CreateThread(function()
                 SetEntityHealth(ped, tempHealth)
             end
         end
+        Wait(Config.HealthPointsTimer*1000)
     end
 end)
 
 -- Idlecam
 CreateThread(function()
     while Config.DisableIdleCamera do
-        Wait(10000)
         if isPlayerAnimal then
             InvalidateIdleCam()
             InvalidateVehicleIdleCam()
         end
+        Wait(10000)
     end
 end)
 
@@ -88,14 +88,13 @@ CreateThread(function()
             local player = PlayerId()
             local xyz = GetEntityCoords(ped)
 
-            SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
-
             if IsEntityInWater(ped) == 1 then -- If In Water
                 if not pedRunOnce then
                     print("in water")
+                    SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
                     --SetPlayerSprint(player, false)
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
-                    --SetSwimMultiplierForPlayer(player, Config.SwimMultiplier) -- Make animals normal speed in water
+                    SetSwimMultiplierForPlayer(player, Config.SwimMultiplier) -- Make animals normal speed in water
                     --dogSwimAnim()
                     pedRunOnce = true
                 end
@@ -103,12 +102,28 @@ CreateThread(function()
                 if pedRunOnce then -- If Not In Water
                     --SetPlayerSprint(player, true)
                     SetPedCanRagdoll(ped, true) -- Enable ragdoll again
-                    --SetRunSprintMultiplierForPlayer(player, Config.RunSprintMultiplier) -- Make animals normal speed in water
+                    SetRunSprintMultiplierForPlayer(player, Config.RunSprintMultiplier) -- Make animals normal speed in water
                     --ClearPedTasks(ped)
                     pedRunOnce = false
                 end
-                -- If inside (in MLO/underground) and shift (sprint) is pressed
-                if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
+                if IsPedWalking(ped) and IsPedOnFoot(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
+                    -- Use / adjust general walk speed
+                    SetPedMoveRateOverride(ped, walkSpeed)
+                    if IsControlPressed(0, 96) then
+                        if canRequestSpeedWalk and adjustDirectionWalk ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
+                            canRequestSpeedWalk = false
+                            walkSpeed += 0.01
+                            TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal, "walk")
+                        end
+                    elseif IsControlPressed(0, 97) then
+                        if canRequestSpeedWalk and adjustDirectionWalk ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
+                            canRequestSpeedWalk = false
+                            walkSpeed -= 0.01
+                            TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal, "walk")
+                        end
+                    end
+                elseif not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
+                    -- If inside (in MLO/underground) and shift (sprint) is pressed
                     SetPedMoveRateOverride(ped, insideRunSpeed)
                     if IsControlPressed(0, 96) then
                         if canRequestSpeedInsideRun and adjustDirectionInsideRun ~= "NotMax" and insideRunSpeed <= Config.InsideRunSpeedMax then
@@ -123,8 +138,8 @@ CreateThread(function()
                             TriggerServerEvent('VerifyEmoteSpeed', insideRunSpeed, isPlayerAnimal, "inrun")
                         end
                     end
-                -- If outside and shift (sprint) is pressed
                 elseif IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
+                    -- If outside and shift (sprint) is pressed
                     SetPedMoveRateOverride(ped, outsideRunSpeed)
                     if IsControlPressed(0, 96) then
                         if canRequestSpeedOutsideRun and adjustDirectionOutsideRun ~= "NotMax" and outsideRunSpeed <= Config.OutsideRunSpeedMax then
@@ -137,22 +152,6 @@ CreateThread(function()
                             canRequestSpeedOutsideRun = false
                             outsideRunSpeed -= 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', outsideRunSpeed, isPlayerAnimal, "outrun")
-                        end
-                    end
-                elseif IsPedWalking(ped) and IsPedOnFoot(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
-                    -- Use / adjust general walk speed
-                    SetPedMoveRateOverride(ped, walkSpeed)
-                    if IsControlPressed(0, 96) then
-                        if canRequestSpeedWalk and adjustDirectionWalk ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
-                            canRequestSpeedWalk = false
-                            walkSpeed += 0.01
-                            TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal, "walk")
-                        end
-                    elseif IsControlPressed(0, 97) then
-                        if canRequestSpeedWalk and adjustDirectionWalk ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
-                            canRequestSpeedWalk = false
-                            walkSpeed -= 0.01
-                            TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal, "walk")
                         end
                     end
                 end
@@ -175,10 +174,10 @@ RegisterCommand('aais', function(source, args, raw)
 end, false)
 TriggerEvent("chat:addSuggestion", "/aais", "Set inside run speed " .. Config.InsideRunSpeedMin .. " to " .. Config.InsideRunSpeedMax)
 
-RegisterCommand('aars', function(source, args, raw)
-    TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "inrun")
+RegisterCommand('aaos', function(source, args, raw)
+    TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "outrun")
 end, false)
-TriggerEvent("chat:addSuggestion", "/aars", "Set outside run speed " .. Config.OutsideRunSpeedMin .. " to " .. Config.OutsideRunSpeedMax)
+TriggerEvent("chat:addSuggestion", "/aaos", "Set outside run speed " .. Config.OutsideRunSpeedMin .. " to " .. Config.OutsideRunSpeedMax)
 
 -- CB from server
 RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowReq)
