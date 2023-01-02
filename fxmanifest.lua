@@ -12,7 +12,7 @@ shared_scripts {
     'shared/*.lua'
 }
 server_scripts {
-    --'@oxmysql/lib/MySQL.lua'
+    --'@oxmysql/lib/MySQL.lua',
     'server/*.lua'
 }
 client_script 'client/*.lua'
