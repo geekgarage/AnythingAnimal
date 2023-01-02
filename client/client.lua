@@ -5,7 +5,9 @@ local pedRunOnce = false
 local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local insideRunSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
 local outsideRunSpeed = GetResourceKvpFloat('AnythingAnimal_OutsideRunSpeed_Float')
-local canRequestSpeed = true
+local canRequestSpeedWalk = true
+local canRequestSpeedInsideRun = true
+local canRequestSpeedOutsideRun = true
 local adjustDirectionWalk = "Both"
 local adjustDirectionInsideRun = "Both"
 local adjustDirectionOutsideRun = "Both"
@@ -109,14 +111,14 @@ CreateThread(function()
                 if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
                     SetPedMoveRateOverride(ped, insideRunSpeed)
                     if IsControlPressed(0, 96) then
-                        if canRequestSpeed and adjustDirectionWalk ~= "NotMax" and insideRunSpeed <= Config.InsideRunSpeedMax then
-                            canRequestSpeed = false
+                        if canRequestSpeedInsideRun and adjustDirectionWalk ~= "NotMax" and insideRunSpeed <= Config.InsideRunSpeedMax then
+                            canRequestSpeedInsideRun = false
                             insideRunSpeed += 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', insideRunSpeed, isPlayerAnimal, "inrun")
                         end
                     elseif IsControlPressed(0, 97) then
-                        if canRequestSpeed and adjustDirectionWalk ~= "NotMin" and insideRunSpeed >= Config.InsideRunSpeedMin then
-                            canRequestSpeed = false
+                        if canRequestSpeedInsideRun and adjustDirectionWalk ~= "NotMin" and insideRunSpeed >= Config.InsideRunSpeedMin then
+                            canRequestSpeedInsideRun = false
                             insideRunSpeed -= 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', insideRunSpeed, isPlayerAnimal, "inrun")
                         end
@@ -125,14 +127,14 @@ CreateThread(function()
                 elseif IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
                     SetPedMoveRateOverride(ped, outsideRunSpeed)
                     if IsControlPressed(0, 96) then
-                        if canRequestSpeed and adjustDirection ~= "NotMax" and outsideRunSpeed <= Config.OutsideRunSpeedMax then
-                            canRequestSpeed = false
+                        if canRequestSpeedOutsideRun and adjustDirection ~= "NotMax" and outsideRunSpeed <= Config.OutsideRunSpeedMax then
+                            canRequestSpeedOutsideRun = false
                             outsideRunSpeed += 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', outsideRunSpeed, isPlayerAnimal, "outrun")
                         end
                     elseif IsControlPressed(0, 97) then
-                        if canRequestSpeed and adjustDirection ~= "NotMin" and outsideRunSpeed >= Config.OutsideRunSpeedMin then
-                            canRequestSpeed = false
+                        if canRequestSpeedOutsideRun and adjustDirection ~= "NotMin" and outsideRunSpeed >= Config.OutsideRunSpeedMin then
+                            canRequestSpeedOutsideRun = false
                             outsideRunSpeed -= 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', outsideRunSpeed, isPlayerAnimal, "outrun")
                         end
@@ -141,14 +143,14 @@ CreateThread(function()
                     -- Use / adjust general walk speed
                     SetPedMoveRateOverride(ped, walkSpeed)
                     if IsControlPressed(0, 96) then
-                        if canRequestSpeed and adjustDirection ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
-                            canRequestSpeed = false
+                        if canRequestSpeedWalk and adjustDirection ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
+                            canRequestSpeedWalk = false
                             walkSpeed += 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal, "walk")
                         end
                     elseif IsControlPressed(0, 97) then
-                        if canRequestSpeed and adjustDirection ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
-                            canRequestSpeed = false
+                        if canRequestSpeedWalk and adjustDirection ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
+                            canRequestSpeedWalk = false
                             walkSpeed -= 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal, "walk")
                         end
@@ -184,19 +186,18 @@ RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowRe
         walkSpeed = speed
         adjustDirectionWalk = adjDir
         SetResourceKvpFloat("AnythingAnimal_WalkSpeed_Float", walkSpeed)
-        print("Walk Speed: " .. walkSpeed)
+        canRequestSpeedWalk = allowReq
     elseif typeAdjust == "inrun" then
         insideRunSpeed = speed
         adjustDirectionInsideRun = adjDir
         SetResourceKvpFloat("AnythingAnimal_InsideRunSpeed_Float", insideRunSpeed)
-        print("Inside Run Speed: " .. insideRunSpeed)
+        canRequestSpeedInsideRun = allowReq
     elseif typeAdjust == "outrun" then
         outsideRunSpeed = speed
         adjustDirectionOutsideRun = adjDir
         SetResourceKvpFloat("AnythingAnimal_OutsideRunSpeed_Float", outsideRunSpeed)
-        print("Outside Run Speed: " .. outsideRunSpeed)
+        canRequestSpeedOutsideRun = allowReq
     end
-    canRequestSpeed = allowReq
 end)
 
 -- Exports
