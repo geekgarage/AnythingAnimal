@@ -6,8 +6,14 @@ local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local insideRunSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
 local outsideRunSpeed = GetResourceKvpFloat('AnythingAnimal_OutsideRunSpeed_Float')
 local swimSpeed = GetResourceKvpFloat('AnythingAnimal_SwimSpeed_Float')
-local canRequestSpeedWalk, canRequestSpeedInsideRun, canRequestSpeedInsideRun, canRequestSpeedSwim = true
-local adjustDirectionWalk, adjustDirectionInsideRun, adjustDirectionOutsideRun, adjustDirectionSwim = "Both"
+local canRequestSpeedWalk = true
+local canRequestSpeedInsideRun = true
+local canRequestSpeedOutsideRun = true
+local canRequestSpeedSwim = true
+local adjustDirectionWalk = "Both"
+local adjustDirectionInsideRun = "Both"
+local adjustDirectionOutsideRun = "Both"
+local adjustDirectionSwim = "Both"
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
 end
