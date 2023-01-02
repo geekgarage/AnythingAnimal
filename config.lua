@@ -35,8 +35,8 @@ Config = {
     InsideRunSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
     InsideRunSpeedMax = 2.00, -- Set the adjustable walk speed maximum value
 
-    OutsideRunSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
-    OutsideRunSpeedMax = 2.00, -- Set the adjustable walk speed maximum value
+    OutsideRunSpeedMin = 1.00, -- Set the adjustable walk speed minimum value
+    OutsideRunSpeedMax = 1.49, -- Set the adjustable walk speed maximum value
 
 
     -- Idle Camera

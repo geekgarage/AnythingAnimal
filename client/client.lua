@@ -102,7 +102,6 @@ CreateThread(function()
                 if pedRunOnce then -- If Not In Water
                     --SetPlayerSprint(player, true)
                     SetPedCanRagdoll(ped, true) -- Enable ragdoll again
-                    SetRunSprintMultiplierForPlayer(player, Config.RunSprintMultiplier) -- Make animals normal speed in water
                     --ClearPedTasks(ped)
                     pedRunOnce = false
                 end
@@ -140,7 +139,8 @@ CreateThread(function()
                     end
                 elseif IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
                     -- If outside and shift (sprint) is pressed
-                    SetPedMoveRateOverride(ped, outsideRunSpeed)
+                    --SetPedMoveRateOverride(ped, outsideRunSpeed)
+                    SetRunSprintMultiplierForPlayer(player, outsideRunSpeed) -- Make animals normal speed in water
                     if IsControlPressed(0, 96) then
                         if canRequestSpeedOutsideRun and adjustDirectionOutsideRun ~= "NotMax" and outsideRunSpeed <= Config.OutsideRunSpeedMax then
                             canRequestSpeedOutsideRun = false
