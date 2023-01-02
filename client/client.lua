@@ -1,16 +1,13 @@
 local animalHashList = {}
 local isPlayerAnimal = false
-local pedMaxHealth = 200
-local pedRunOnce = false
+local playerMaxHealth = 200
+local runOnce = false
 local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local insideRunSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
 local outsideRunSpeed = GetResourceKvpFloat('AnythingAnimal_OutsideRunSpeed_Float')
-local canRequestSpeedWalk = true
-local canRequestSpeedInsideRun = true
-local canRequestSpeedOutsideRun = true
-local adjustDirectionWalk = "Both"
-local adjustDirectionInsideRun = "Both"
-local adjustDirectionOutsideRun = "Both"
+local swimSpeed = GetResourceKvpFloat('AnythingAnimal_SwimSpeed_Float')
+local canRequestSpeedWalk, canRequestSpeedInsideRun, canRequestSpeedInsideRun, canRequestSpeedSwim = true
+local adjustDirectionWalk, adjustDirectionInsideRun, adjustDirectionOutsideRun, adjustDirectionSwim = "Both"
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
 end
@@ -47,10 +44,10 @@ CreateThread(function()
         if isPlayerAnimal then
             local ped = PlayerPedId()
             local pedCurrentHealth = GetEntityHealth(ped)
-            if pedCurrentHealth < pedMaxHealth and not IsEntityDead(ped) then
+            if pedCurrentHealth < playerMaxHealth and not IsEntityDead(ped) then
                 local tempHealth = pedCurrentHealth + Config.HealthPointsRegenerated
-                if tempHealth > pedMaxHealth then
-                    tempHealth = pedMaxHealth
+                if tempHealth > playerMaxHealth then
+                    tempHealth = playerMaxHealth
                 end
                 SetEntityHealth(ped, tempHealth)
             end
@@ -89,21 +86,32 @@ CreateThread(function()
             local xyz = GetEntityCoords(ped)
 
             if IsEntityInWater(ped) == 1 then -- If In Water
-                if not pedRunOnce then
-                    print("in water")
+                if not runOnce then
                     SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
-                    --SetPlayerSprint(player, false)
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
-                    SetSwimMultiplierForPlayer(player, Config.SwimMultiplier) -- Make animals normal speed in water
-                    --dogSwimAnim()
-                    pedRunOnce = true
+                    --SetPlayerSprint(player, false)
+                    runOnce = true
+                end
+                SetPedMoveRateOverride(ped, swimSpeed)
+                if IsControlPressed(0, 96) then
+                    if canRequestSpeedSwim and adjustDirectionSwim ~= "NotMax" and swimSpeed <= Config.SwimSpeedMax then
+                        canRequestSpeedSwim = false
+                        swimSpeed += 0.01
+                        TriggerServerEvent('VerifyEmoteSpeed', swimSpeed, isPlayerAnimal, "swim")
+                    end
+                elseif IsControlPressed(0, 97) then
+                    if canRequestSpeedSwim and adjustDirectionSwim ~= "NotMin" and swimSpeed >= Config.SwimSpeedMin then
+                        canRequestSpeedSwim = false
+                        swimSpeed -= 0.01
+                        TriggerServerEvent('VerifyEmoteSpeed', swimSpeed, isPlayerAnimal, "wswimalk")
+                    end
                 end
             else
-                if pedRunOnce then -- If Not In Water
-                    --SetPlayerSprint(player, true)
+                if runOnce then -- If Not In Water
                     SetPedCanRagdoll(ped, true) -- Enable ragdoll again
+                    --SetPlayerSprint(player, true)
                     --ClearPedTasks(ped)
-                    pedRunOnce = false
+                    runOnce = false
                 end
                 if IsPedWalking(ped) and IsPedOnFoot(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
                     -- Use / adjust general walk speed
@@ -139,8 +147,7 @@ CreateThread(function()
                     end
                 elseif IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
                     -- If outside and shift (sprint) is pressed
-                    --SetPedMoveRateOverride(ped, outsideRunSpeed)
-                    SetRunSprintMultiplierForPlayer(player, outsideRunSpeed) -- Make animals normal speed in water
+                    SetPedMoveRateOverride(ped, outsideRunSpeed)
                     if IsControlPressed(0, 96) then
                         if canRequestSpeedOutsideRun and adjustDirectionOutsideRun ~= "NotMax" and outsideRunSpeed <= Config.OutsideRunSpeedMax then
                             canRequestSpeedOutsideRun = false
@@ -179,6 +186,11 @@ RegisterCommand('aaos', function(source, args, raw)
 end, false)
 TriggerEvent("chat:addSuggestion", "/aaos", "Set outside run speed " .. Config.OutsideRunSpeedMin .. " to " .. Config.OutsideRunSpeedMax)
 
+RegisterCommand('aass', function(source, args, raw)
+    TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "swim")
+end, false)
+TriggerEvent("chat:addSuggestion", "/aass", "Set swim speed " .. Config.SwimSpeedMin .. " to " .. Config.SwimSpeedMax)
+
 -- CB from server
 RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowReq)
     if typeAdjust == "walk" then
@@ -196,6 +208,11 @@ RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowRe
         adjustDirectionOutsideRun = adjDir
         SetResourceKvpFloat("AnythingAnimal_OutsideRunSpeed_Float", outsideRunSpeed)
         canRequestSpeedOutsideRun = allowReq
+    elseif typeAdjust == "swim" then
+        swimSpeed = speed
+        adjustDirectionSwim = adjDir
+        SetResourceKvpFloat("AnythingAnimal_OutsideRunSpeed_Float", swimSpeed)
+        canRequestSpeedSwim = allowReq
     end
 end)
 
@@ -218,6 +235,5 @@ RegisterCommand('aadebug', function(source, args, raw)
     print(GetWaterHeight(xyz.x,xyz.y,xyz.z))
     print(GetWaterHeightNoWaves(xyz.x,xyz.y,xyz.z))
     print("-------------------------")
-    RenderFakePickupGlow(xyz.x,xyz.y,xyz.z,(args[1] or 0))
 end, false)
-TriggerEvent("chat:addSuggestion", "/aadebug", "RenderFakePickupGlow [int]")
+TriggerEvent("chat:addSuggestion", "/aadebug", "No Args")

@@ -35,6 +35,17 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
             speed = Config.OutsideRunSpeedMin
             adjDir = "NotMin"
         end
+    elseif typeAdj == "swim" then
+        if speed > Config.SwimSpeedMax then
+            speed = Config.SwimSpeedMax
+            adjDir = "NotMax"
+        elseif speed < 0 then
+            speed = 0
+            adjDir = "NotMin"
+        elseif speed < Config.SwimSpeedMin then
+            speed = Config.SwimSpeedMin
+            adjDir = "NotMin"
+        end
     end
     print(speed, adjDir, typeAdj)
     TriggerClientEvent('UpdMovementSpeed', source, speed, adjDir, typeAdj, true)

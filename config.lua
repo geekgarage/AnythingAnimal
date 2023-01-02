@@ -26,18 +26,17 @@ Config = {
     HealthPointsTimer = 2,    -- How often to regenerate in seconds? (no negative values)
 
     -- Speed 
-    SwimMultiplier = 1.00, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
-    RunSprintMultiplier = 1.00, -- Any value below 1.0 or above 1.49 will be ignored by GTA native functions
-
     WalkSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
     WalkSpeedMax = 2.00, -- Set the adjustable walk speed maximum value
 
     InsideRunSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
     InsideRunSpeedMax = 2.00, -- Set the adjustable walk speed maximum value
 
-    OutsideRunSpeedMin = 1.00, -- Set the adjustable walk speed minimum value
-    OutsideRunSpeedMax = 1.49, -- Set the adjustable walk speed maximum value
+    OutsideRunSpeedMin = 0.00, -- Set the adjustable walk speed minimum value
+    OutsideRunSpeedMax = 2.00, -- Set the adjustable walk speed maximum value
 
+    SwimSpeedMin = 0.00, -- Set the adjustable swim speed minimum value
+    SwimSpeedMax = 2.00, -- Set the adjustable swim speed maximum value
 
     -- Idle Camera
     DisableIdleCamera = true -- Will disable idle camera for listed PEDs
