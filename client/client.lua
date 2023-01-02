@@ -99,7 +99,7 @@ CreateThread(function()
                     runOnce = true
                 end
                 SetPedMoveRateOverride(ped, swimSpeed)
-                SetEntityVelocity(ped,,,(xyz.z-currentWaterHeight))
+                SetEntityVelocity(ped,_,_,(xyz.z-currentWaterHeight))
                 if IsControlPressed(0, 96) then
                     if canRequestSpeedSwim and adjustDirectionSwim ~= "NotMax" and swimSpeed <= Config.SwimSpeedMax then
                         canRequestSpeedSwim = false
