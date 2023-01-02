@@ -17,6 +17,7 @@ The current script doeas the following
   * /aass x.yz (swim)
   * Or while moving using NUM+/- or mouse scroll
   * Adjust limits in config
+- Option to disable Idlecam (preferred) as is will mess with voice comms when activated and you could miss out of important information
 
 Add to server and 'ensure AnythingAnimal' in server config. 
 If running QB-Core just place the script in [standalone] category folder
