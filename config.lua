@@ -7,9 +7,7 @@
 
 AnimalPed = {
     "a_c_chop",
-    "a_c_coyote",
     "a_c_husky",
-    "a_c_mtlion",
     "a_c_poodle",
     "a_c_pug",
     "a_c_retriever",
