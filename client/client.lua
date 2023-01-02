@@ -236,6 +236,14 @@ RegisterCommand('aadebug', function(source, args, raw)
     print("--------| DEBUG |--------")
     print("-------------------------")
     print(playerRotation)
+    SetEntityRotation(
+        ped,
+        (playerRotation.z-playerRotation.z),
+        playerRotation.x,
+        playerRotation.y,
+        2,
+        true
+    )
     --[[ print(xyz.z)
     print(currentWaterHeight)
     print((xyz.z-currentWaterHeight)) ]]
