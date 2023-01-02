@@ -91,7 +91,7 @@ CreateThread(function()
             local player = PlayerId()
             local xyz = GetEntityCoords(ped)
 
-            if inWater == 1 or IsEntityInWater(ped) then -- If In Water
+            if IsEntityInWater(ped) then -- If In Water
                 if not runOnce then
                     SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
