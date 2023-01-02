@@ -101,7 +101,7 @@ CreateThread(function()
                     runOnce = true
                 end
                 SetPedMoveRateOverride(ped, swimSpeed)
-                SetEntityVelocity(ped,0,0,(xyz.z-currentWaterHeight))
+                --SetEntityVelocity(ped,0,0,(xyz.z-currentWaterHeight))
                 if IsControlPressed(0, 96) then
                     if canRequestSpeedSwim and adjustDirectionSwim ~= "NotMax" and swimSpeed <= Config.SwimSpeedMax then
                         canRequestSpeedSwim = false
@@ -234,12 +234,7 @@ RegisterCommand('aadebug', function(source, args, raw)
     local player = PlayerId()
     local ped = PlayerPedId()
     local xyz = GetEntityCoords(ped)
-    local inWater, currentWaterHeight = TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,0)
-    print(TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,0))
-    print(TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,1))
-    print(TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,2))
-    print(TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,3))
-    print(TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,4))
+    local inWater, currentWaterHeight = TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,1)
     print(xyz.z)
     print(currentWaterHeight)
     print((xyz.z-currentWaterHeight))
