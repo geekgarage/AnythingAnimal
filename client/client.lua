@@ -221,7 +221,7 @@ RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowRe
     elseif typeAdjust == "swim" then
         swimSpeed = speed
         adjustDirectionSwim = adjDir
-        SetResourceKvpFloat("AnythingAnimal_OutsideRunSpeed_Float", swimSpeed)
+        SetResourceKvpFloat("AnythingAnimal_SwimSpeed_Float", swimSpeed)
         canRequestSpeedSwim = allowReq
     end
 end)
