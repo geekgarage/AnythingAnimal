@@ -109,7 +109,7 @@ CreateThread(function()
                     if canRequestSpeedSwim and adjustDirectionSwim ~= "NotMin" and swimSpeed >= Config.SwimSpeedMin then
                         canRequestSpeedSwim = false
                         swimSpeed -= 0.01
-                        TriggerServerEvent('VerifyEmoteSpeed', swimSpeed, isPlayerAnimal, "wswimalk")
+                        TriggerServerEvent('VerifyEmoteSpeed', swimSpeed, isPlayerAnimal, "swim")
                     end
                 end
             else
