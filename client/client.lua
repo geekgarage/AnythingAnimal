@@ -90,8 +90,9 @@ CreateThread(function()
             local ped = PlayerPedId()
             local player = PlayerId()
             local xyz = GetEntityCoords(ped)
+            local inWater, currentWaterHeight = TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,0)
 
-            if IsEntityInWater(ped) == 1 then -- If In Water
+            if inWater == 1 then -- If In Water
                 if not runOnce then
                     SetPedDiesInWater(ped, false) -- Disable animal dies in water instantly
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
@@ -99,6 +100,7 @@ CreateThread(function()
                     runOnce = true
                 end
                 SetPedMoveRateOverride(ped, swimSpeed)
+                SetEntityVelocity(ped,0,0,(xyz.z-))
                 if IsControlPressed(0, 96) then
                     if canRequestSpeedSwim and adjustDirectionSwim ~= "NotMax" and swimSpeed <= Config.SwimSpeedMax then
                         canRequestSpeedSwim = false
@@ -234,12 +236,6 @@ RegisterCommand('aadebug', function(source, args, raw)
     print(isPlayerAnimal)
     print(IsCollisionMarkedOutside(xyz))
     print(GetPedMovementClipset(ped))
-    print(GetEntityLodDist(ped))
-    print(HasCollisionLoadedAroundEntity())
-    print(IsPedOnFoot(ped))
-    print(IsPedUsingAnyScenario(ped))
-    print(GetWaterHeight(xyz.x,xyz.y,xyz.z))
-    print(GetWaterHeightNoWaves(xyz.x,xyz.y,xyz.z))
     print(TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,0))
     print("-------------------------")
 end, false)
