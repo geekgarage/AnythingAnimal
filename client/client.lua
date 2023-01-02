@@ -111,13 +111,13 @@ CreateThread(function()
                 if not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
                     SetPedMoveRateOverride(ped, insideRunSpeed)
                     if IsControlPressed(0, 96) then
-                        if canRequestSpeedInsideRun and adjustDirectionWalk ~= "NotMax" and insideRunSpeed <= Config.InsideRunSpeedMax then
+                        if canRequestSpeedInsideRun and adjustDirectionInsideRun ~= "NotMax" and insideRunSpeed <= Config.InsideRunSpeedMax then
                             canRequestSpeedInsideRun = false
                             insideRunSpeed += 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', insideRunSpeed, isPlayerAnimal, "inrun")
                         end
                     elseif IsControlPressed(0, 97) then
-                        if canRequestSpeedInsideRun and adjustDirectionWalk ~= "NotMin" and insideRunSpeed >= Config.InsideRunSpeedMin then
+                        if canRequestSpeedInsideRun and adjustDirectionInsideRun ~= "NotMin" and insideRunSpeed >= Config.InsideRunSpeedMin then
                             canRequestSpeedInsideRun = false
                             insideRunSpeed -= 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', insideRunSpeed, isPlayerAnimal, "inrun")
@@ -127,13 +127,13 @@ CreateThread(function()
                 elseif IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
                     SetPedMoveRateOverride(ped, outsideRunSpeed)
                     if IsControlPressed(0, 96) then
-                        if canRequestSpeedOutsideRun and adjustDirection ~= "NotMax" and outsideRunSpeed <= Config.OutsideRunSpeedMax then
+                        if canRequestSpeedOutsideRun and adjustDirectionOutsideRun ~= "NotMax" and outsideRunSpeed <= Config.OutsideRunSpeedMax then
                             canRequestSpeedOutsideRun = false
                             outsideRunSpeed += 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', outsideRunSpeed, isPlayerAnimal, "outrun")
                         end
                     elseif IsControlPressed(0, 97) then
-                        if canRequestSpeedOutsideRun and adjustDirection ~= "NotMin" and outsideRunSpeed >= Config.OutsideRunSpeedMin then
+                        if canRequestSpeedOutsideRun and adjustDirectionOutsideRun ~= "NotMin" and outsideRunSpeed >= Config.OutsideRunSpeedMin then
                             canRequestSpeedOutsideRun = false
                             outsideRunSpeed -= 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', outsideRunSpeed, isPlayerAnimal, "outrun")
@@ -143,13 +143,13 @@ CreateThread(function()
                     -- Use / adjust general walk speed
                     SetPedMoveRateOverride(ped, walkSpeed)
                     if IsControlPressed(0, 96) then
-                        if canRequestSpeedWalk and adjustDirection ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
+                        if canRequestSpeedWalk and adjustDirectionWalk ~= "NotMax" and walkSpeed <= Config.WalkSpeedMax then
                             canRequestSpeedWalk = false
                             walkSpeed += 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal, "walk")
                         end
                     elseif IsControlPressed(0, 97) then
-                        if canRequestSpeedWalk and adjustDirection ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
+                        if canRequestSpeedWalk and adjustDirectionWalk ~= "NotMin" and walkSpeed >= Config.WalkSpeedMin then
                             canRequestSpeedWalk = false
                             walkSpeed -= 0.01
                             TriggerServerEvent('VerifyEmoteSpeed', walkSpeed, isPlayerAnimal, "walk")
