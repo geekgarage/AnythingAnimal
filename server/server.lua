@@ -47,6 +47,5 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
             adjDir = "NotMin"
         end
     end
-    print(speed, adjDir, typeAdj)
     TriggerClientEvent('UpdMovementSpeed', source, speed, adjDir, typeAdj, true)
 end)
