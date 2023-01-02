@@ -101,7 +101,7 @@ CreateThread(function()
                     SetPedCanRagdoll(ped, false) -- Disable ragdoll of animals in water
                     runOnce = true
                 end
-                SetEntityRotation(ped, playerRotation.z, 0, playerRotation.y, 2, true )
+                SetEntityRotation(ped, playerRotation.z, 0.00, playerRotation.y, 2, true )
                 SetPedMoveRateOverride(ped, swimSpeed)
                 if IsControlPressed(0, 96) then
                     if canRequestSpeedSwim and adjustDirectionSwim ~= "NotMax" and swimSpeed <= Config.SwimSpeedMax then
