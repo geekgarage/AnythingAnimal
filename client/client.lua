@@ -91,7 +91,7 @@ CreateThread(function()
             local player = PlayerId()
             local xyz = GetEntityCoords(ped)
 
-            print(IsMoveBlendRatioSprinting(ped))
+            print(IsMoveBlendRatioRunning(ped))
 
             if IsEntityInWater(ped) == 1 then -- If In Water
                 if not runOnce then
