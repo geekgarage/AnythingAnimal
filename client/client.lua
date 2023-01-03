@@ -182,30 +182,40 @@ end)
 
 -- Add Chat commands
 RegisterCommand('aaws', function(source, args, raw)
-    TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "walk")
+    if isPlayerAnimal then
+        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "walk")
+    end
 end, false)
 TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpeedMin .. " to " .. Config.WalkSpeedMax)
 
 RegisterCommand('aais', function(source, args, raw)
-    TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "inrun")
+    if isPlayerAnimal then
+        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "inrun")
+    end
 end, false)
 TriggerEvent("chat:addSuggestion", "/aais", "Set inside run speed " .. Config.InsideRunSpeedMin .. " to " .. Config.InsideRunSpeedMax)
 
 RegisterCommand('aaos', function(source, args, raw)
-    TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "outrun")
+    if isPlayerAnimal then
+        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "outrun")
+    end
 end, false)
 TriggerEvent("chat:addSuggestion", "/aaos", "Set outside run speed " .. Config.OutsideRunSpeedMin .. " to " .. Config.OutsideRunSpeedMax)
 
 RegisterCommand('aass', function(source, args, raw)
-    TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "swim")
+    if isPlayerAnimal then
+        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "swim")
+    end
 end, false)
 TriggerEvent("chat:addSuggestion", "/aass", "Set swim speed " .. Config.SwimSpeedMin .. " to " .. Config.SwimSpeedMax)
 
 RegisterCommand('aaspeeds', function(source, args, raw)
-    print("Walk: " .. walkSpeed)
-    print("Inside Run: " .. insideRunSpeed)
-    print("Outside Run: " .. outsideRunSpeed)
-    print("Swim: " .. swimSpeed)
+    if isPlayerAnimal then
+        print("Walk: " .. walkSpeed)
+        print("Inside Run: " .. insideRunSpeed)
+        print("Outside Run: " .. outsideRunSpeed)
+        print("Swim: " .. swimSpeed)
+    end
 end, false)
 TriggerEvent("chat:addSuggestion", "/aaspeeds", "Show set speeds")
 
