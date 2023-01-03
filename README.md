@@ -11,10 +11,11 @@ The current script does the following
 - Disable ragdoll of animals in water
 - "Run" in MLO and in underground
 - Adjust movement speed using command:
-  * /aaws x.yz (walk)
-  * /aais x.yz (run inside)
-  * /aaos x.yz (run outside)
-  * /aass x.yz (swim)
+  * /aaws x.yz (set walk)
+  * /aais x.yz (set run inside)
+  * /aaos x.yz (set run outside)
+  * /aass x.yz (set swim)
+  * /aaspeeds (show current speeds)
   * Or while moving using NUM+/- or mouse scroll
   * Adjust limits in config
 - Option to disable Idlecam (preferred) as it will mess with voice when activated and you could miss out of important conversation
