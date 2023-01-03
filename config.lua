@@ -14,6 +14,7 @@ AnimalPed = {
     "a_c_rottweiler",
     "a_c_shepherd",
     "a_c_westy",
+    "ig_geek",
     "ig_geek_k9",
     "ig_geek_gangdog"
 }

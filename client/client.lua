@@ -231,18 +231,16 @@ exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
     -- print(exports['AnythingAnimal']:getIsPlayerAnimal())
 
 -- DEBUG COMMAND
---[[ 
-RegisterCommand('aadebug', function(source, args, raw)
+
+--[[ RegisterCommand('aadebug', function(source, args, raw)
     local player = PlayerId()
     local ped = PlayerPedId()
     local xyz = GetEntityCoords(ped)
     local playerRotation = GetEntityRotation(ped, 2)
-    --local inWater, currentWaterHeight = TestVerticalProbeAgainstAllWater(xyz.x,xyz.y,xyz.z,1)
     print("-------------------------")
     print("--------| DEBUG |--------")
     print("-------------------------")
     print(playerRotation)
-    SetEntityRotation(ped, playerRotation.z, 0, playerRotation.y, 2, true )
     print(xyz.z)
     print(currentWaterHeight)
     print((xyz.z-currentWaterHeight))
@@ -250,6 +248,6 @@ RegisterCommand('aadebug', function(source, args, raw)
     print("---------| END |---------")
     print("-------------------------")
     print(" ")
-end, false)
- ]]
+end, false) ]]
+
 TriggerEvent("chat:addSuggestion", "/aadebug", "No Args")
