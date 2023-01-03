@@ -201,6 +201,14 @@ RegisterCommand('aass', function(source, args, raw)
 end, false)
 TriggerEvent("chat:addSuggestion", "/aass", "Set swim speed " .. Config.SwimSpeedMin .. " to " .. Config.SwimSpeedMax)
 
+RegisterCommand('aaspeeds', function(source, args, raw)
+    print("Walk: " .. walkSpeed)
+    print("Inside Run: " .. insideRunSpeed)
+    print("Outside Run: " .. outsideRunSpeed)
+    print("Swim: " .. swimSpeed)
+end, false)
+TriggerEvent("chat:addSuggestion", "/aaspeeds", "Show set speeds")
+
 -- CB from server
 RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowReq)
     if typeAdjust == "walk" then
@@ -231,7 +239,6 @@ exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
     -- print(exports['AnythingAnimal']:getIsPlayerAnimal())
 
 -- DEBUG COMMAND
-
 --[[ RegisterCommand('aadebug', function(source, args, raw)
     local player = PlayerId()
     local ped = PlayerPedId()
