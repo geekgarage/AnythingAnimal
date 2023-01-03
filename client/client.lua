@@ -255,6 +255,6 @@ exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
     print("---------| END |---------")
     print("-------------------------")
     print(" ")
-end, false) ]]
-
+end, false)
 TriggerEvent("chat:addSuggestion", "/aadebug", "No Args")
+ ]]
