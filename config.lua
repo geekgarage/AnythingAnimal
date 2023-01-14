@@ -14,7 +14,6 @@ AnimalPed = {
     "a_c_rottweiler",
     "a_c_shepherd",
     "a_c_westy",
-    "ig_geek",
     "ig_geek_k9",
     "ig_geek_gangdog"
 }
@@ -35,7 +34,7 @@ Config = {
     InsideRunSpeedMin = 0.60, -- Set the adjustable walk speed minimum value
     InsideRunSpeedMax = 1.60, -- Set the adjustable walk speed maximum value
 
-    OutsideRunSpeedMin = 0.50, -- Set the adjustable walk speed minimum value
+    OutsideRunSpeedMin = 0.85, -- Set the adjustable walk speed minimum value
     OutsideRunSpeedMax = 1.30, -- Set the adjustable walk speed maximum value
 
     SwimSpeedMin = 0.20, -- Set the adjustable swim speed minimum value

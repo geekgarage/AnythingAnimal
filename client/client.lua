@@ -119,8 +119,6 @@ CreateThread(function()
             else
                 if runOnce then -- If Not In Water
                     SetPedCanRagdoll(ped, true) -- Enable ragdoll again
-                    --SetPlayerSprint(player, true)
-                    --ClearPedTasks(ped)
                     runOnce = false
                 end
                 if IsPedWalking(ped) and IsPedOnFoot(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
