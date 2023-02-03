@@ -29,7 +29,7 @@ Config = {
 
     -- Speed 
     WalkSpeedMin = 0.10, -- Set the adjustable walk speed minimum value
-    WalkSpeedMax = 1.65, -- Set the adjustable walk speed maximum value
+    WalkSpeedMax = 1.75, -- Set the adjustable walk speed maximum value
 
     InsideRunSpeedMin = 0.60, -- Set the adjustable walk speed minimum value
     InsideRunSpeedMax = 1.80, -- Set the adjustable walk speed maximum value
