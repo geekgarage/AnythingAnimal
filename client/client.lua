@@ -171,7 +171,8 @@ CreateThread(function()
                     end
                 end
                 if IsControlPressed(0, 22) then
-                    TaskJump(ped,false, false, false)
+                    print("AA: Jumping")
+                    TaskJump(ped,true, false, false)
                 end
             end
             Wait(0)
