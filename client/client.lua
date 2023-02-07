@@ -170,6 +170,9 @@ CreateThread(function()
                         end
                     end
                 end
+                if IsControlPressed(0, 22) then
+                    TaskJump(ped,false, false, false)
+                end
             end
             Wait(0)
         else
