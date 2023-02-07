@@ -172,8 +172,8 @@ CreateThread(function()
                 end
                 if IsControlPressed(0, 22) then
                     print("AA: Jumping")
-                    print(GetOffsetFromEntityInWorldCoords(ped, 2, 0, 0))
-                    -- GetSafeCoordForPed(x, y, z, false, 16)
+                    currentPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 2, 0, 0)
+                    print(GetSafeCoordForPed(currentPEDCoords.x, currentPEDCoords.y, currentPEDCoords.z, false, 16))
                 end
             end
             Wait(0)
