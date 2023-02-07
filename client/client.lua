@@ -176,7 +176,9 @@ CreateThread(function()
                     print("Current: " .. GetEntityCoords(ped))
                     print("Offset: vec3(" .. currentPEDCoords.x .. " " .. currentPEDCoords.y .. " " .. currentPEDCoords.z ..")")
                     print("New: vec3(" .. offsetPEDCoords.x .. " " .. offsetPEDCoords.y .. " " .. offsetPEDCoords.z ..")")
-                    SetEntityCoords(ped, offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, false, false, false)
+                    if offsetPEDBool then
+                        SetEntityCoords(ped, offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, false, false, false)
+                    end
                 end
             end
             Wait(0)
