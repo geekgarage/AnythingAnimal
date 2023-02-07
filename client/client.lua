@@ -173,7 +173,8 @@ CreateThread(function()
                 if IsControlPressed(0, 22) then
                     print("Current: " .. GetEntityCoords(ped))
                     currentPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 2, 0, 0)
-                    print("Forward: " .. GetSafeCoordForPed(currentPEDCoords, false, 16))
+                    print("Offset - x:" .. currentPEDCoords.x .. "y:" .. currentPEDCoords.y .. "z:" .. currentPEDCoords.z)
+                    print("Forward: " .. GetSafeCoordForPed(currentPEDCoords.x, currentPEDCoords.y, currentPEDCoords.z, false, 16))
                 end
             end
             Wait(0)
