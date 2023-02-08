@@ -52,7 +52,7 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
 end)
 
 
-RegistterNetEvent('JumpPED', function(isAnimal)
+RegisterNetEvent('JumpPED', function(isAnimal)
     if isAnimal then
         local pedCurrentCoords = GetEntityCoords(source)
         print("C: " .. pedCurrentCoords)

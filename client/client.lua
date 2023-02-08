@@ -173,7 +173,7 @@ CreateThread(function()
                 if IsControlPressed(0, 22) then
                     offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 1.5, 1.0)
                     if true then
-                        TriggerServerEvent('VerifyEmoteSpeed', offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, isPlayerAnimal)
+                        TriggerServerEvent('JumpPED', isPlayerAnimal)
                         Wait(1500)
                     end
                 end
