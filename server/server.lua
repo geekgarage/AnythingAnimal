@@ -53,10 +53,11 @@ end)
 
 
 RegisterNetEvent('JumpPED', function(isAnimal)
-    if isAnimal then
-        local pedCurrentCoords = GetEntityCoords(source)
+    if isAnimal then   
+        local ped = GetPlayerPed(source)    
+        local pedCurrentCoords = GetEntityCoords(ped)
         print("C: " .. pedCurrentCoords)
-        local offsetPEDCoords = GetOffsetFromEntityInWorldCoords(source, 0.0, 1.5, 1.0)
+        local offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 1.5, 1.0)
         print("O: " .. offsetPEDCoords)
         SetEntityCoords(source, offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, false, false, false)
     end
