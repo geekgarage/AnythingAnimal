@@ -171,7 +171,7 @@ CreateThread(function()
                     end
                 end
                 if IsControlPressed(0, 22) then
-                    currentPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 0.5, 0.0)
+                    currentPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 1.0, 0.0)
                     offsetPEDBool, offsetPEDCoords = GetSafeCoordForPed(currentPEDCoords.x, currentPEDCoords.y, currentPEDCoords.z, false, 16)
                     print("Current: " .. GetEntityCoords(ped))
                     print("Offset: vec3(" .. currentPEDCoords.x .. " " .. currentPEDCoords.y .. " " .. currentPEDCoords.z ..")")
