@@ -52,10 +52,10 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
 end)
 
 
-RegisterNetEvent('JumpPED', function(isAnimal, offsetPEDCoords)
+RegisterNetEvent('JumpPED', function(isAnimal, jumpCoords)
     if isAnimal then
-        if offsetPEDCoords then
-            SetEntityCoords(source, offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, false, false, false)
+        if jumpCoords then
+            SetEntityCoords(source, jumpCoords.x, jumpCoords.y, jumpCoords.z, false, false, false, false)
         else
             TriggerClientEvent('GetOffsetInWorld', source)
         end
