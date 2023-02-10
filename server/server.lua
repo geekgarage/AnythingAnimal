@@ -55,7 +55,7 @@ end)
 RegisterNetEvent('JumpPED', function(isAnimal, jumpCoords)
     if isAnimal then
         if jumpCoords then
-            local pedVel = GetEntityVelocity(source)
+            local pedVel = GetEntityVelocity(GetPlayerPed(source))
             SetEntityCoords(source, jumpCoords.x, jumpCoords.y, jumpCoords.z, false, false, false, false)
             SetEntityVelocity(source, pedVel.x, pedVel.y, pedVel.z)
         else
