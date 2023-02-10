@@ -116,6 +116,10 @@ CreateThread(function()
                         TriggerServerEvent('VerifyEmoteSpeed', swimSpeed, isPlayerAnimal, "swim")
                     end
                 end
+                if IsControlPressed(0, 22) then
+                    TriggerServerEvent('JumpPED', isPlayerAnimal, false)
+                    Wait(2000)
+                end
             else
                 if runOnce then -- If Not In Water
                     SetPedCanRagdoll(ped, true) -- Enable ragdoll again
@@ -250,7 +254,6 @@ end)
 RegisterNetEvent('GetOffsetInWorld', function()
     local ped = PlayerPedId()
     local offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, Config.JumpDistance, Config.JumpHeight)
-    local pedJumpCoords = GetSafeCoordForPed(offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, 0)
     TriggerServerEvent('JumpPED', isPlayerAnimal, offsetPEDCoords)
 end)
 
