@@ -60,7 +60,7 @@ RegisterNetEvent('JumpPED', function(isAnimal, offsetPEDCoords)
             print("O: " .. offsetPEDCoords)
             SetEntityCoords(source, offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, false, false, false)
         else
-            TriggerClientEvent('GetOffsetInWorld')
+            TriggerClientEvent('GetOffsetInWorld', source)
             print("C: " .. pedCurrentCoords)
         end
     end
