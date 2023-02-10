@@ -251,8 +251,10 @@ end)
 
 RegisterNetEvent('GetOffsetInWorld', function()
     local ped = PlayerPedId()
+    local pedCurrentCoords = GetEntityCoords(ped)
+    local pedJumpCoords = GetSafeCoordForPed(pedCurrentCoords.x, pedCurrentCoords.y, pedCurrentCoords.z, false, 0)
     local offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, Config.JumpDistance, Config.JumpHeight)
-    TriggerServerEvent('JumpPED', isPlayerAnimal, offsetPEDCoords)
+    TriggerServerEvent('JumpPED', isPlayerAnimal, pedJumpCoords)
 end)
 
 -- Exports

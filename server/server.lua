@@ -54,10 +54,6 @@ end)
 
 RegisterNetEvent('JumpPED', function(isAnimal, offsetPEDCoords)
     if isAnimal then
-        local ped = GetPlayerPed(source)    
-        local pedCurrentCoords = GetEntityCoords(ped)
-        local pedJumpCoords = GetSafePickupCoords(pedCurrentCoords.x, pedCurrentCoords.y, pedCurrentCoords.z, 0.5, 0.5)
-        print(pedJumpCoords)
         if offsetPEDCoords then
             SetEntityCoords(source, offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, false, false, false)
         else
