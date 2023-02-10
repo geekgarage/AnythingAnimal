@@ -3,7 +3,7 @@ game 'gta5'
 
 author 'GeekGarage <info@geekgarage.dk>'
 description 'AnythingAnimal'
-version '1.3.3'
+version '1.3.4'
 
 --dependency 'oxmysql'
 
