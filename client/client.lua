@@ -255,11 +255,30 @@ RegisterNetEvent('GetOffsetInWorld', function()
     local ped = PlayerPedId()
     local offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, Config.JumpDistance, Config.JumpHeight)
     TriggerServerEvent('JumpPED', isPlayerAnimal, offsetPEDCoords)
+    ClearPedTasks(ped)
+    LoadAnim(dict)
+    TaskPlayAnim(ped, ChosenDict, ChosenAnimation, AnimationBlendSpeed, AnimationBlendSpeed, AnimationDuration, MovementType, 0, false, false, false)
+    RemoveAnimDict(ChosenDict)
 end)
 
 -- Exports
 exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
     -- print(exports['AnythingAnimal']:getIsPlayerAnimal())
+
+-- Functions
+function LoadAnim(dict)
+    if not DoesAnimDictExist(dict) then
+        return false
+    end
+
+    while not HasAnimDictLoaded(dict) do
+        RequestAnimDict(dict)
+        Wait(10)
+    end
+
+    return true
+end
+
 
 -- DEBUG COMMAND
 --[[ RegisterCommand('aadebug', function(source, args, raw)
