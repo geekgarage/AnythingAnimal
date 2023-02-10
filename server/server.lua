@@ -56,8 +56,8 @@ RegisterNetEvent('JumpPED', function(isAnimal, offsetPEDCoords)
     if isAnimal then
         local ped = GetPlayerPed(source)    
         local pedCurrentCoords = GetEntityCoords(ped)
-        print(((offsetPEDCoords.y - pedCurrentCoords.y) == Config.JumpDistance) .. " " .. ((offsetPEDCoords.z - pedCurrentCoords.z) == Config.JumpHeight))
         if offsetPEDCoords then
+            print(((offsetPEDCoords.y - pedCurrentCoords.y) == Config.JumpDistance) .. " " .. ((offsetPEDCoords.z - pedCurrentCoords.z) == Config.JumpHeight))
             print("O: " .. offsetPEDCoords)
             SetEntityCoords(source, offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, false, false, false)
         else
