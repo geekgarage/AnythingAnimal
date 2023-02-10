@@ -40,6 +40,10 @@ Config = {
     SwimSpeedMin = 0.20, -- Set the adjustable swim speed minimum value
     SwimSpeedMax = 0.65, -- Set the adjustable swim speed maximum value
 
+    -- Jump Settings
+    JumpDistance = 2.0 -- Set the distance an animal will jump
+    JumpHeight = 1.5 -- Set the height an animal will jump
+
     -- Idle Camera
     DisableIdleCamera = true -- Will disable idle camera for listed PEDs
 }

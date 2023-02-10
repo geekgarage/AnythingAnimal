@@ -171,9 +171,8 @@ CreateThread(function()
                     end
                 end
                 if IsControlPressed(0, 22) then
-                    offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 1.5, 1.0)
                     if true then
-                        TriggerServerEvent('JumpPED', isPlayerAnimal)
+                        TriggerServerEvent('JumpPED', isPlayerAnimal, false)
                         Wait(1500)
                     end
                 end
@@ -247,6 +246,13 @@ RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowRe
         SetResourceKvpFloat("AnythingAnimal_SwimSpeed_Float", swimSpeed)
         canRequestSpeedSwim = allowReq
     end
+end)
+
+
+RegisterNetEvent('GetOffsetInWorld', function()
+    local ped = PlayerPedId()
+    local offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 1.5, 1.0)
+    TriggerServerEvent('JumpPED', isPlayerAnimal, offsetPEDCoords)
 end)
 
 -- Exports

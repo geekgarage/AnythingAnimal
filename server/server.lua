@@ -52,13 +52,16 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
 end)
 
 
-RegisterNetEvent('JumpPED', function(isAnimal)
-    if isAnimal then   
+RegisterNetEvent('JumpPED', function(isAnimal, offsetPEDCoords)
+    if isAnimal then
         local ped = GetPlayerPed(source)    
         local pedCurrentCoords = GetEntityCoords(ped)
-        print("C: " .. pedCurrentCoords)
-        local offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 1.5, 1.0)
-        print("O: " .. offsetPEDCoords)
-        SetEntityCoords(source, offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, false, false, false)
+        if offsetPEDCoords and ((offsetPEDCoords.y-pedCurrentCoords.y) =< Config.JumpDistance) and ((offsetPEDCoords.z-pedCurrentCoords.z) =< Config.JumpHeight) then
+            print("O: " .. offsetPEDCoords)
+            SetEntityCoords(source, offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, false, false, false)
+        else
+            TriggerClientEvent('GetOffsetInWorld')
+            print("C: " .. pedCurrentCoords)
+        end
     end
 end)
