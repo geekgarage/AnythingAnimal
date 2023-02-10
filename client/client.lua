@@ -173,7 +173,7 @@ CreateThread(function()
                 if IsControlPressed(0, 22) then
                     if true then
                         TriggerServerEvent('JumpPED', isPlayerAnimal, false)
-                        Wait(1500)
+                        Wait(2000)
                     end
                 end
             end
