@@ -171,10 +171,8 @@ CreateThread(function()
                     end
                 end
                 if IsControlPressed(0, 22) then
-                    if true then
-                        TriggerServerEvent('JumpPED', isPlayerAnimal, false)
-                        Wait(2000)
-                    end
+                    TriggerServerEvent('JumpPED', isPlayerAnimal, false)
+                    Wait(2000)
                 end
             end
             Wait(0)
@@ -251,10 +249,9 @@ end)
 
 RegisterNetEvent('GetOffsetInWorld', function()
     local ped = PlayerPedId()
-    local pedCurrentCoords = GetEntityCoords(ped)
     local offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, Config.JumpDistance, Config.JumpHeight)
     local pedJumpCoords = GetSafeCoordForPed(offsetPEDCoords.x, offsetPEDCoords.y, offsetPEDCoords.z, false, 0)
-    TriggerServerEvent('JumpPED', isPlayerAnimal, pedJumpCoords)
+    TriggerServerEvent('JumpPED', isPlayerAnimal, offsetPEDCoords)
 end)
 
 -- Exports
