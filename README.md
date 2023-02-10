@@ -9,6 +9,7 @@ The current script does the following
 - Unlimited stamina (Enable/Disable in config)
 - Animals won't die instantly in water
 - Disable ragdoll of animals in water
+- Added "jump" to animals by teleporting
 - "Run" in MLO and in underground
 - Adjust movement speed using command:
   * /aaws x.yz (set walk)
