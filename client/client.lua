@@ -281,14 +281,16 @@ end
 
 
 -- DEBUG COMMAND
---[[ RegisterCommand('aadebug', function(source, args, raw)
+RegisterCommand('aadebug', function(source, args, raw)
     local player = PlayerId()
     local ped = PlayerPedId()
     local xyz = GetEntityCoords(ped)
     local playerRotation = GetEntityRotation(ped, 2)
+    local scriptVersion = GetResourceMetadata("AnythingAnimal", "version", 0)
     print("-------------------------")
     print("--------| DEBUG |--------")
     print("-------------------------")
+    print("Version: " .. scriptVersion)
     print(playerRotation)
     print(xyz.z)
     print(currentWaterHeight)
@@ -299,4 +301,3 @@ end
     print(" ")
 end, false)
 TriggerEvent("chat:addSuggestion", "/aadebug", "No Args")
- ]]
