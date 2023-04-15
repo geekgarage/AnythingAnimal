@@ -34,15 +34,15 @@ Config = {
     InsideRunSpeedMin = 0.60, -- Set the adjustable walk speed minimum value
     InsideRunSpeedMax = 1.80, -- Set the adjustable walk speed maximum value
 
-    OutsideRunSpeedMin = 0.65, -- Set the adjustable walk speed minimum value
+    OutsideRunSpeedMin = 0.55, -- Set the adjustable walk speed minimum value
     OutsideRunSpeedMax = 1.30, -- Set the adjustable walk speed maximum value
 
     SwimSpeedMin = 0.20, -- Set the adjustable swim speed minimum value
     SwimSpeedMax = 0.65, -- Set the adjustable swim speed maximum value
 
     -- Jump Settings
-    JumpDistance = 1.5, -- Set the distance an animal will jump
-    JumpHeight = 1.0, -- Set the height an animal will jump
+    JumpDistance = 2.5, -- Set the distance an animal will jump
+    JumpHeight = 1.5, -- Set the height an animal will jump
 
     -- Idle Camera
     DisableIdleCamera = true -- Will disable idle camera for listed PEDs
