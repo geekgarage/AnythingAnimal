@@ -1,54 +1,18 @@
-RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
+RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal)
     if not isAnimal then return end
     local adjDir = "Both"
 
     if typeAdj == "walk" then
-        if speed > Config.WalkSpeedMax then
-            speed = Config.WalkSpeedMax
-            adjDir = "NotMax"
-        elseif speed < 0 then
-            speed = 0
-            adjDir = "NotMin"
-        elseif speed < Config.WalkSpeedMin then
-            speed = Config.WalkSpeedMin
-            adjDir = "NotMin"
-        end
-    elseif typeAdj == "inrun" then
-        if speed > Config.InsideRunSpeedMax then
-            speed = Config.InsideRunSpeedMax
-            adjDir = "NotMax"
-        elseif speed < 0 then
-            speed = 0
-            adjDir = "NotMin"
-        elseif speed < Config.InsideRunSpeedMin then
-            speed = Config.InsideRunSpeedMin
-            adjDir = "NotMin"
-        end
-    elseif typeAdj == "outrun" then
-        if speed > Config.OutsideRunSpeedMax then
-            speed = Config.OutsideRunSpeedMax
-            adjDir = "NotMax"
-        elseif speed < 0 then
-            speed = 0
-            adjDir = "NotMin"
-        elseif speed < Config.OutsideRunSpeedMin then
-            speed = Config.OutsideRunSpeedMin
-            adjDir = "NotMin"
-        end
+        speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
+    elseif typeAdj == "jog" then
+        speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
+    elseif typeAdj == "sprint" then
+        speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
     elseif typeAdj == "swim" then
-        if speed > Config.SwimSpeedMax then
-            speed = Config.SwimSpeedMax
-            adjDir = "NotMax"
-        elseif speed < 0 then
-            speed = 0
-            adjDir = "NotMin"
-        elseif speed < Config.SwimSpeedMin then
-            speed = Config.SwimSpeedMin
-            adjDir = "NotMin"
-        end
+        speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
     end
     
-    TriggerClientEvent('UpdMovementSpeed', source, speed, adjDir, typeAdj, true)
+    TriggerClientEvent('UpdMovementSpeed', source, speed, true)
 end)
 
 
@@ -61,4 +25,8 @@ RegisterNetEvent('JumpPED', function(isAnimal, jumpCoords)
             TriggerClientEvent('GetOffsetInWorld', source)
         end
     end
+end)
+
+RegisterNetEvent('syncPlayerMovement', function(speedType, speedValue)
+    TriggerClientEvent('syncPlayerMovement', -1, source, speedType, speedValue)
 end)

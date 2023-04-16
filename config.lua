@@ -31,11 +31,11 @@ Config = {
     WalkSpeedMin = 0.10, -- Set the adjustable walk speed minimum value
     WalkSpeedMax = 1.75, -- Set the adjustable walk speed maximum value
 
-    InsideRunSpeedMin = 0.60, -- Set the adjustable walk speed minimum value
-    InsideRunSpeedMax = 1.80, -- Set the adjustable walk speed maximum value
+    JogSpeedMin = 0.40, -- Set the adjustable walk speed minimum value
+    JogSpeedMax = 1.25, -- Set the adjustable walk speed maximum value
 
-    OutsideRunSpeedMin = 0.55, -- Set the adjustable walk speed minimum value
-    OutsideRunSpeedMax = 1.30, -- Set the adjustable walk speed maximum value
+    SprintSpeedMin = 0.60, -- Set the adjustable walk speed minimum value
+    SprintSpeedMax = 1.80, -- Set the adjustable walk speed maximum value
 
     SwimSpeedMin = 0.20, -- Set the adjustable swim speed minimum value
     SwimSpeedMax = 0.65, -- Set the adjustable swim speed maximum value
