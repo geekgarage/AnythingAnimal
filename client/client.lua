@@ -6,6 +6,9 @@ local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local jogSpeed = GetResourceKvpFloat('AnythingAnimal_JogSpeed_Float')
 local sprintSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
 local swimSpeed = GetResourceKvpFloat('AnythingAnimal_SwimSpeed_Float')
+local speedType = nil
+local speedValue = nil
+
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
 end
@@ -91,8 +94,6 @@ CreateThread(function()
             local ped = PlayerPedId()
             local player = PlayerId()
             local xyz = GetEntityCoords(ped)
-            local speedType = nil
-            local speedValue = nil
 
             if IsEntityInWater(ped) then -- If In Water
                 if not runOnce then
