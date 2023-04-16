@@ -1,4 +1,4 @@
-RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal)
+RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
     if not isAnimal then return end
     local adjDir = "Both"
 
@@ -27,6 +27,8 @@ RegisterNetEvent('JumpPED', function(isAnimal, jumpCoords)
     end
 end)
 
-RegisterNetEvent('syncPlayerMovement', function(speedType, speedValue)
-    TriggerClientEvent('syncPlayerMovement', -1, source, speedType, speedValue)
+RegisterNetEvent('syncPlayerMovement', function(speedType, speedValue, isAnimal)
+    if isAnimal then
+        TriggerClientEvent('syncPlayerMovement', -1, source, speedType, speedValue)
+    end
 end)
