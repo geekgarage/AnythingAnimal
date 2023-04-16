@@ -6,14 +6,6 @@ local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local jogSpeed = GetResourceKvpFloat('AnythingAnimal_JogSpeed_Float')
 local sprintSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
 local swimSpeed = GetResourceKvpFloat('AnythingAnimal_SwimSpeed_Float')
-local canRequestSpeedWalk = true
-local canRequestSpeedInsideRun = true
-local canRequestSpeedOutsideRun = true
-local canRequestSpeedSwim = true
-local adjustDirectionWalk = "Both"
-local adjustDirectionInsideRun = "Both"
-local adjustDirectionOutsideRun = "Both"
-local adjustDirectionSwim = "Both"
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
 end
@@ -166,47 +158,38 @@ function UpdateSpeed(speed, speedType)
     local increment = 0.01
 
     if IsControlPressed(0, 96) then -- scroll up
-        newSpeed = newSpeed + increment
+        newSpeed += increment
     elseif IsControlPressed(0, 97) then -- scroll down
-        newSpeed = newSpeed - increment
+        newSpeed -= increment
     end
 
-    -- Clamp speed to mix/max
+    -- Clamp and apply speed between min & max
     if speedType == "walk" then
         newSpeed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
-    elseif speedType == "jog" then
-        newSpeed = math.min(math.max(speed, Config.JogSpeedMax), Config.JogSpeedMin)
-    elseif speedType == "sprint" then
-        newSpeed = math.min(math.max(speed, Config.SprintSpeedMax), Config.SprintSpeedMin)
-    elseif speedType == "swim" then
-        newSpeed = math.min(math.max(speed, Config.SwimSpeedMax), Config.SwimSpeedMin)
-    end
-
-    -- Apply the new speed
-    if speedType == "walk" then
         SetWalkSpeedMultiplier(newSpeed)
     elseif speedType == "jog" then
+        newSpeed = math.min(math.max(speed, Config.JogSpeedMax), Config.JogSpeedMin)
         SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
     elseif speedType == "sprint" then
+        newSpeed = math.min(math.max(speed, Config.SprintSpeedMax), Config.SprintSpeedMin)
         SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
         SetPedMoveRateOverride(PlayerPedId(), newSpeed)
     elseif speedType == "swim" then
+        newSpeed = math.min(math.max(speed, Config.SwimSpeedMax), Config.SwimSpeedMin)
         SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
         SetPedMoveRateOverride(PlayerPedId(), newSpeed)
     end
 
     return newSpeed
-end)
-
-
+end
 
 -- Add Chat commands
-RegisterCommand('aaws', function(source, args, raw)
+RegisterCommand('aawalk', function(source, args, raw)
     if isPlayerAnimal then
         TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "walk")
     end
 end, false)
-TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpeedMin .. " to " .. Config.WalkSpeedMax)
+TriggerEvent("chat:addSuggestion", "/aawalk", "Set walk speed " .. Config.WalkSpeedMin .. " to " .. Config.WalkSpeedMax)
 
 RegisterCommand('aajog', function(source, args, raw)
     if isPlayerAnimal then
@@ -215,20 +198,20 @@ RegisterCommand('aajog', function(source, args, raw)
 end, false)
 TriggerEvent("chat:addSuggestion", "/aajog", "Set jog speed " .. Config.JogSpeedMin .. " to " .. Config.JogSpeedMax)
 
-RegisterCommand('aaos', function(source, args, raw)
-    if isPlayerAnimal then
-        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "outrun")
-    end
-end, false)
-TriggerEvent("chat:addSuggestion", "/aaos", "Set outside run speed " .. Config.OutsideRunSpeedMin .. " to " .. Config.OutsideRunSpeedMax)
-
-
 RegisterCommand('aasprint', function(source, args, raw)
     if isPlayerAnimal then
         TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "sprint")
     end
 end, false)
 TriggerEvent("chat:addSuggestion", "/aasprint", "Set sprint speed " .. Config.SprintSpeedMin .. " to " .. Config.SprintSpeedMax)
+
+
+RegisterCommand('aaswim', function(source, args, raw)
+    if isPlayerAnimal then
+        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "swim")
+    end
+end, false)
+TriggerEvent("chat:addSuggestion", "/aaswim", "Set swim speed " .. Config.SwimSpeedMin .. " to " .. Config.SwimSpeedMax)
 
 RegisterCommand('aaspeeds', function(source, args, raw)
     if isPlayerAnimal then
@@ -275,23 +258,22 @@ RegisterNetEvent('syncPlayerMovement', function(playerId, speedType, speedValue)
 end)
 
 -- CB from server
-RegisterNetEvent('UpdMovementSpeed', function(speed, typeAdjust, allowReq)
-    if typeAdjust == "walk" then
-        walkSpeed = speed
-        SetResourceKvpFloat("AnythingAnimal_WalkSpeed_Float", walkSpeed)
-        canRequestSpeedWalk = allowReq
-    elseif typeAdjust == "jog" then
-        jogSpeed = speed
-        SetResourceKvpFloat("AnythingAnimal_JogSpeed_Float", jogSpeed)
-        canRequestSpeedJog = allowReq
-    elseif typeAdjust == "sprint" then
-        sprintSpeed = speed
-        SetResourceKvpFloat("AnythingAnimal_SprintSpeed_Float", sprintSpeed)
-        canRequestSpeedSprint = allowReq
-    elseif typeAdjust == "swim" then
-        swimSpeed = speed
-        SetResourceKvpFloat("AnythingAnimal_SwimSpeed_Float", swimSpeed)
-        canRequestSpeedSwim = allowReq
+RegisterNetEvent('UpdMovementSpeed', function(speed, speedType)
+    -- Clamp and apply speed between min & max
+    if speedType == "walk" then
+        newSpeed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
+        SetWalkSpeedMultiplier(newSpeed)
+    elseif speedType == "jog" then
+        newSpeed = math.min(math.max(speed, Config.JogSpeedMax), Config.JogSpeedMin)
+        SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
+    elseif speedType == "sprint" then
+        newSpeed = math.min(math.max(speed, Config.SprintSpeedMax), Config.SprintSpeedMin)
+        SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
+        SetPedMoveRateOverride(PlayerPedId(), newSpeed)
+    elseif speedType == "swim" then
+        newSpeed = math.min(math.max(speed, Config.SwimSpeedMax), Config.SwimSpeedMin)
+        SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
+        SetPedMoveRateOverride(PlayerPedId(), newSpeed)
     end
 end)
 

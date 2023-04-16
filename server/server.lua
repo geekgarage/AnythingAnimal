@@ -1,18 +1,17 @@
-RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
+RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, speedType)
     if not isAnimal then return end
-    local adjDir = "Both"
 
-    if typeAdj == "walk" then
+    if speedType == "walk" then
         speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
-    elseif typeAdj == "jog" then
+    elseif speedType == "jog" then
         speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
-    elseif typeAdj == "sprint" then
+    elseif speedType == "sprint" then
         speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
-    elseif typeAdj == "swim" then
+    elseif speedType == "swim" then
         speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
     end
     
-    TriggerClientEvent('UpdMovementSpeed', source, speed, typeAdj, true)
+    TriggerClientEvent('UpdMovementSpeed', source, speed, speedType)
 end)
 
 /*
