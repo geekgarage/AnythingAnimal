@@ -1,4 +1,4 @@
-RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, speedType)
+RegisterNetEvent('AnythingAnimal:VerifyEmoteSpeed', function(speed, isAnimal, speedType)
     if not isAnimal then return end
 
     if speedType == "walk" then
@@ -11,7 +11,7 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, speedType)
         speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
     end
     
-    TriggerClientEvent('UpdMovementSpeed', source, speed, speedType)
+    TriggerClientEvent('AnythingAnimal:UpdMovementSpeed', source, speed, speedType)
 end)
 
 /*
@@ -27,8 +27,8 @@ RegisterNetEvent('JumpPED', function(isAnimal, jumpCoords)
 end)
 */
 
-RegisterNetEvent('syncPlayerMovement', function(speedType, speedValue, isAnimal)
+RegisterNetEvent('AnythingAnimal:syncPlayerMovement', function(speedType, speedValue, isAnimal)
     if isAnimal then
-        TriggerClientEvent('syncPlayerMovement', -1, source, speedType, speedValue)
+        TriggerClientEvent('AnythingAnimal:syncPlayerMovement', -1, source, speedType, speedValue)
     end
 end)

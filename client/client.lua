@@ -2,12 +2,26 @@ local animalHashList = {}
 local isPlayerAnimal = false
 local playerMaxHealth = 200
 local runOnce = false
+local speedType = nil
+local speedValue = nil
+
 local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local jogSpeed = GetResourceKvpFloat('AnythingAnimal_JogSpeed_Float')
 local sprintSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
 local swimSpeed = GetResourceKvpFloat('AnythingAnimal_SwimSpeed_Float')
-local speedType = nil
-local speedValue = nil
+
+if not walkSpeed then
+    walkSpeed = Config.WalkSpeedMax
+end
+if not jogSpeed then
+    jogSpeed = Config.JogSpeedMax
+end
+if not sprintSpeed then
+    sprintSpeed = Config.SprintSpeedMax
+end
+if not swimSpeed then
+    swimSpeed = Config.SwimSpeedMax
+end
 
 for _, v in ipairs(AnimalPed) do
     table.insert(animalHashList, GetHashKey(v))
@@ -31,7 +45,7 @@ CreateThread(function()
         if isPlayerAnimal then
             -- Static Updates
             local player = PlayerId()
-            SetPlayerLockonRangeOverride(player, 50.0)
+            SetPlayerLockonRangeOverride(player, 100.0)
             SetPedCombatRange(ped, 2)
             if Config.UseStaminaReset then
                 ResetPlayerStamina(player)
@@ -72,24 +86,8 @@ end)
 
 -- Main Thread
 CreateThread(function()
-
-
-    if not walkSpeed then
-        walkSpeed = Config.WalkSpeedMax
-    end
-    if not jogSpeed then
-        jogSpeed = Config.JogSpeedMax
-    end
-    if not sprintSpeed then
-        sprintSpeed = Config.SprintSpeedMax
-    end
-    if not swimSpeed then
-        swimSpeed = Config.SwimSpeedMax
-    end
-
-
     while true do
-        -- Land and Water fixes
+        -- Land and Water speeds
         if isPlayerAnimal then
             local ped = PlayerPedId()
             local player = PlayerId()
@@ -111,7 +109,7 @@ CreateThread(function()
             if IsPedOnFoot(ped) then
                 if IsEntityInWater(ped) then -- swim
                     speedType = "swim"
-                    sprintSpeed = UpdateSpeed(swimSpeed, "swim")
+                    swimSpeed = UpdateSpeed(swimSpeed, "swim")
                     --TriggerServerEvent('VerifyEmoteSpeed', newSpeed, isPlayerAnimal, "swim")
                     speedValue = swimSpeed                    
                 elseif IsControlPressed(0, 21) then -- sprinting
@@ -138,7 +136,7 @@ CreateThread(function()
                 end
 
                 -- Send the speed change event to the server to synchronize with other players
-                TriggerServerEvent('syncPlayerMovement', speedType, speedValue, isPlayerAnimal)
+                TriggerServerEvent('AnythingAnimal:syncPlayerMovement', speedType, speedValue, isPlayerAnimal)
             end
 
             /*
@@ -238,17 +236,14 @@ end)
 */
 
 -- Handle the speed change event received from the server
-RegisterNetEvent('syncPlayerMovement', function(playerId, speedType, speedValue)
+RegisterNetEvent('AnythingAnimal:syncPlayerMovement', function(playerId, speedType, speedValue)
     local targetPed = GetPlayerPed(GetPlayerFromServerId(playerId))
     if DoesEntityExist(targetPed) then
         if speedType == "walk" then
             SetEntitySpeed(targetPed, speedValue)
         elseif speedType == "jog" then
             SetRunSprintMultiplierForPlayer(GetPlayerFromServerId(playerId), speedValue)
-        elseif speedType == "sprintInside" then
-            SetRunSprintMultiplierForPlayer(GetPlayerFromServerId(playerId), speedValue)
-            SetPedMoveRateOverride(targetPed, speedValue)
-        elseif speedType == "sprintOutside" then
+        elseif speedType == "sprint" then
             SetRunSprintMultiplierForPlayer(GetPlayerFromServerId(playerId), speedValue)
             SetPedMoveRateOverride(targetPed, speedValue)
         elseif speedType == "swim" then
@@ -259,22 +254,16 @@ RegisterNetEvent('syncPlayerMovement', function(playerId, speedType, speedValue)
 end)
 
 -- CB from server
-RegisterNetEvent('UpdMovementSpeed', function(speed, speedType)
+RegisterNetEvent('AnythingAnimal:UpdMovementSpeed', function(speed, speedType)
     -- Clamp and apply speed between min & max
     if speedType == "walk" then
-        newSpeed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
-        SetWalkSpeedMultiplier(newSpeed)
+        walkSpeed = speed
     elseif speedType == "jog" then
-        newSpeed = math.min(math.max(speed, Config.JogSpeedMax), Config.JogSpeedMin)
-        SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
+        jogSpeed = speed
     elseif speedType == "sprint" then
-        newSpeed = math.min(math.max(speed, Config.SprintSpeedMax), Config.SprintSpeedMin)
-        SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
-        SetPedMoveRateOverride(PlayerPedId(), newSpeed)
+        sprintSpeed = speed
     elseif speedType == "swim" then
-        newSpeed = math.min(math.max(speed, Config.SwimSpeedMax), Config.SwimSpeedMin)
-        SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
-        SetPedMoveRateOverride(PlayerPedId(), newSpeed)
+        swimSpeed = speed
     end
 end)
 
