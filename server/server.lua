@@ -12,10 +12,10 @@ RegisterNetEvent('VerifyEmoteSpeed', function(speed, isAnimal, typeAdj)
         speed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
     end
     
-    TriggerClientEvent('UpdMovementSpeed', source, speed, true)
+    TriggerClientEvent('UpdMovementSpeed', source, speed, typeAdj, true)
 end)
 
-
+/*
 RegisterNetEvent('JumpPED', function(isAnimal, jumpCoords)
     if isAnimal then
         if jumpCoords then
@@ -26,6 +26,7 @@ RegisterNetEvent('JumpPED', function(isAnimal, jumpCoords)
         end
     end
 end)
+*/
 
 RegisterNetEvent('syncPlayerMovement', function(speedType, speedValue, isAnimal)
     if isAnimal then

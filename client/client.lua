@@ -4,8 +4,7 @@ local playerMaxHealth = 200
 local runOnce = false
 local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local jogSpeed = GetResourceKvpFloat('AnythingAnimal_JogSpeed_Float')
-local insideRunSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
-local outsideRunSpeed = GetResourceKvpFloat('AnythingAnimal_OutsideRunSpeed_Float')
+local sprintSpeed = GetResourceKvpFloat('AnythingAnimal_InsideRunSpeed_Float')
 local swimSpeed = GetResourceKvpFloat('AnythingAnimal_SwimSpeed_Float')
 local canRequestSpeedWalk = true
 local canRequestSpeedInsideRun = true
@@ -78,21 +77,22 @@ end)
 
 -- Main Thread
 CreateThread(function()
+
+
     if not walkSpeed then
         walkSpeed = Config.WalkSpeedMax
     end
     if not jogSpeed then
-        walkSpeed = Config.JogSpeedMax
+        jogSpeed = Config.JogSpeedMax
     end
-    if not insideRunSpeed then
-        insideRunSpeed = Config.InsideRunSpeedMax
-    end
-    if not outsideRunSpeed then
-        outsideRunSpeed = Config.OutsideRunSpeedMax
+    if not sprintSpeed then
+        sprintSpeed = Config.SprintSpeedMax
     end
     if not swimSpeed then
         swimSpeed = Config.SwimSpeedMax
     end
+
+
     while true do
         -- Land and Water fixes
         if isPlayerAnimal then
@@ -101,30 +101,6 @@ CreateThread(function()
             local xyz = GetEntityCoords(ped)
             local speedType = nil
             local speedValue = nil
-
-            if IsPedOnFoot(ped) then
-                if IsControlPressed(0, 21) then -- sprinting
-                    speedType = "sprint"
-                    sprintSpeed = UpdateSpeed(sprintSpeed, "sprint")
-                    speedValue = sprintSpeed
-                elseif IsControlPressed(0, 19) then -- jogging
-                    speedType = "jog"
-                    jogSpeed = UpdateSpeed(jogSpeed, "jog")
-                    speedValue = jogSpeed
-                else -- walking
-                    speedType = "walk"
-                    walkSpeed = UpdateSpeed(walkSpeed, "walk")
-                    speedValue = walkSpeed
-                end
-                
-                if IsControlPressed(0, 22) then
-                    TriggerServerEvent('JumpPED', isPlayerAnimal, false)
-                    Wait(2000)
-                end
-
-                -- Send the speed change event to the server to synchronize with other players
-                TriggerServerEvent('syncPlayerMovement', speedType, speedValue)
-            end
 
             if IsEntityInWater(ped) then -- If In Water
                 if not runOnce then
@@ -138,9 +114,41 @@ CreateThread(function()
                     runOnce = false
                 end
             end
-               
-            
-            
+
+            if IsPedOnFoot(ped) then
+                if IsEntityInWater(ped) then -- swim
+                    speedType = "swim"
+                    sprintSpeed = UpdateSpeed(swimSpeed, "swim")
+                    --TriggerServerEvent('VerifyEmoteSpeed', newSpeed, isPlayerAnimal, "swim")
+                    speedValue = swimSpeed                    
+                elseif IsControlPressed(0, 21) then -- sprinting
+                    speedType = "sprint"
+                    sprintSpeed = UpdateSpeed(sprintSpeed, "sprint")
+                    --TriggerServerEvent('VerifyEmoteSpeed', newSpeed, isPlayerAnimal, "sprint")
+                    speedValue = sprintSpeed
+                elseif IsControlPressed(0, 19) then -- jogging
+                    speedType = "jog"
+                    jogSpeed = UpdateSpeed(jogSpeed, "jog")
+                    --TriggerServerEvent('VerifyEmoteSpeed', newSpeed, isPlayerAnimal, "jog")
+                    speedValue = jogSpeed
+                else -- walking
+                    speedType = "walk"
+                    walkSpeed = UpdateSpeed(walkSpeed, "walk")
+                    --TriggerServerEvent('VerifyEmoteSpeed', newSpeed, isPlayerAnimal, "walk")
+                    speedValue = walkSpeed
+                end
+                
+                if IsControlPressed(0, 22) then
+                    --TriggerServerEvent('JumpPED', isPlayerAnimal, false)
+                    TaskJump(ped, true)
+                    Wait(2000)
+                end
+
+                -- Send the speed change event to the server to synchronize with other players
+                TriggerServerEvent('syncPlayerMovement', speedType, speedValue, isPlayerAnimal)
+            end
+
+            /*
             if IsPedWalking(ped) and IsPedOnFoot(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
                 -- Use / adjust general walk speed
             elseif not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
@@ -148,6 +156,7 @@ CreateThread(function()
             elseif IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
                 -- If outside and shift (sprint) is pressed
             end
+            */
         end
     end
 end)
@@ -162,15 +171,15 @@ function UpdateSpeed(speed, speedType)
         newSpeed = newSpeed - increment
     end
 
-    -- Clamp speed to minimum and maximum values
+    -- Clamp speed to mix/max
     if speedType == "walk" then
-        TriggerServerEvent('VerifyEmoteSpeed', newSpeed, isPlayerAnimal, "walk")
+        newSpeed = math.min(math.max(speed, Config.WalkSpeedMax), Config.WalkSpeedMin)
     elseif speedType == "jog" then
-        TriggerServerEvent('VerifyEmoteSpeed', newSpeed, isPlayerAnimal, "jog")
+        newSpeed = math.min(math.max(speed, Config.JogSpeedMax), Config.JogSpeedMin)
     elseif speedType == "sprint" then
-        TriggerServerEvent('VerifyEmoteSpeed', newSpeed, isPlayerAnimal, "sprint")
+        newSpeed = math.min(math.max(speed, Config.SprintSpeedMax), Config.SprintSpeedMin)
     elseif speedType == "swim" then
-        TriggerServerEvent('VerifyEmoteSpeed', newSpeed, isPlayerAnimal, "swim")
+        newSpeed = math.min(math.max(speed, Config.SwimSpeedMax), Config.SwimSpeedMin)
     end
 
     -- Apply the new speed
@@ -199,12 +208,12 @@ RegisterCommand('aaws', function(source, args, raw)
 end, false)
 TriggerEvent("chat:addSuggestion", "/aaws", "Set walk speed " .. Config.WalkSpeedMin .. " to " .. Config.WalkSpeedMax)
 
-RegisterCommand('aais', function(source, args, raw)
+RegisterCommand('aajog', function(source, args, raw)
     if isPlayerAnimal then
-        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "inrun")
+        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "jog")
     end
 end, false)
-TriggerEvent("chat:addSuggestion", "/aais", "Set inside run speed " .. Config.InsideRunSpeedMin .. " to " .. Config.InsideRunSpeedMax)
+TriggerEvent("chat:addSuggestion", "/aajog", "Set jog speed " .. Config.JogSpeedMin .. " to " .. Config.JogSpeedMax)
 
 RegisterCommand('aaos', function(source, args, raw)
     if isPlayerAnimal then
@@ -213,49 +222,26 @@ RegisterCommand('aaos', function(source, args, raw)
 end, false)
 TriggerEvent("chat:addSuggestion", "/aaos", "Set outside run speed " .. Config.OutsideRunSpeedMin .. " to " .. Config.OutsideRunSpeedMax)
 
-RegisterCommand('aass', function(source, args, raw)
+
+RegisterCommand('aasprint', function(source, args, raw)
     if isPlayerAnimal then
-        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "swim")
+        TriggerServerEvent('VerifyEmoteSpeed', tonumber(args[1]), isPlayerAnimal, "sprint")
     end
 end, false)
-TriggerEvent("chat:addSuggestion", "/aass", "Set swim speed " .. Config.SwimSpeedMin .. " to " .. Config.SwimSpeedMax)
+TriggerEvent("chat:addSuggestion", "/aasprint", "Set sprint speed " .. Config.SprintSpeedMin .. " to " .. Config.SprintSpeedMax)
 
 RegisterCommand('aaspeeds', function(source, args, raw)
     if isPlayerAnimal then
         print("Walk: " .. walkSpeed)
+        print("Jog: " .. jogSpeed)
+        print("Sprint: " .. sprintSpeed)
         print("Inside Run: " .. insideRunSpeed)
-        print("Outside Run: " .. outsideRunSpeed)
-        print("Swim: " .. swimSpeed)
     end
 end, false)
 TriggerEvent("chat:addSuggestion", "/aaspeeds", "Show set speeds")
 
--- CB from server
-RegisterNetEvent('UpdMovementSpeed', function(speed, adjDir, typeAdjust, allowReq)
-    if typeAdjust == "walk" then
-        walkSpeed = speed
-        adjustDirectionWalk = adjDir
-        SetResourceKvpFloat("AnythingAnimal_WalkSpeed_Float", walkSpeed)
-        canRequestSpeedWalk = allowReq
-    elseif typeAdjust == "inrun" then
-        insideRunSpeed = speed
-        adjustDirectionInsideRun = adjDir
-        SetResourceKvpFloat("AnythingAnimal_JogSpeed_Float", jogSpeed)
-        canRequestSpeedInsideRun = allowReq
-    elseif typeAdjust == "inrun" then
-        insideRunSpeed = speed
-        adjustDirectionInsideRun = adjDir
-        SetResourceKvpFloat("AnythingAnimal_SprintSpeed_Float", sprintSpeed)
-        canRequestSpeedInsideRun = allowReq
-    elseif typeAdjust == "swim" then
-        swimSpeed = speed
-        adjustDirectionSwim = adjDir
-        SetResourceKvpFloat("AnythingAnimal_SwimSpeed_Float", swimSpeed)
-        canRequestSpeedSwim = allowReq
-    end
-end)
 
-
+/*
 RegisterNetEvent('GetOffsetInWorld', function()
     local ped = PlayerPedId()
     local offsetPEDCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, Config.JumpDistance, Config.JumpHeight)
@@ -265,6 +251,7 @@ RegisterNetEvent('GetOffsetInWorld', function()
     --TaskPlayAnim(ped, ChosenDict, ChosenAnimation, AnimationBlendSpeed, AnimationBlendSpeed, AnimationDuration, MovementType, 0, false, false, false)
     --RemoveAnimDict(ChosenDict)
 end)
+*/
 
 -- Handle the speed change event received from the server
 RegisterNetEvent('syncPlayerMovement', function(playerId, speedType, speedValue)
@@ -284,6 +271,27 @@ RegisterNetEvent('syncPlayerMovement', function(playerId, speedType, speedValue)
             SetRunSprintMultiplierForPlayer(GetPlayerFromServerId(playerId), speedValue)
             SetPedMoveRateOverride(targetPed, speedValue)
         end
+    end
+end)
+
+-- CB from server
+RegisterNetEvent('UpdMovementSpeed', function(speed, typeAdjust, allowReq)
+    if typeAdjust == "walk" then
+        walkSpeed = speed
+        SetResourceKvpFloat("AnythingAnimal_WalkSpeed_Float", walkSpeed)
+        canRequestSpeedWalk = allowReq
+    elseif typeAdjust == "jog" then
+        jogSpeed = speed
+        SetResourceKvpFloat("AnythingAnimal_JogSpeed_Float", jogSpeed)
+        canRequestSpeedJog = allowReq
+    elseif typeAdjust == "sprint" then
+        sprintSpeed = speed
+        SetResourceKvpFloat("AnythingAnimal_SprintSpeed_Float", sprintSpeed)
+        canRequestSpeedSprint = allowReq
+    elseif typeAdjust == "swim" then
+        swimSpeed = speed
+        SetResourceKvpFloat("AnythingAnimal_SwimSpeed_Float", swimSpeed)
+        canRequestSpeedSwim = allowReq
     end
 end)
 
