@@ -4,6 +4,8 @@ local playerMaxHealth = 200
 local runOnce = false
 local speedType = nil
 local speedValue = nil
+local oldSpeedValue = nil
+local oldSpeedType = nil
 
 local walkSpeed = GetResourceKvpFloat('AnythingAnimal_WalkSpeed_Float')
 local jogSpeed = GetResourceKvpFloat('AnythingAnimal_JogSpeed_Float')
@@ -91,7 +93,7 @@ CreateThread(function()
         if isPlayerAnimal then
             local ped = PlayerPedId()
             local player = PlayerId()
-            local xyz = GetEntityCoords(ped)
+            --local xyz = GetEntityCoords(ped)
 
             if IsEntityInWater(ped) then -- If In Water
                 if not runOnce then
@@ -136,19 +138,18 @@ CreateThread(function()
                 end
 
                 -- Send the speed change event to the server to synchronize with other players
-                TriggerServerEvent('AnythingAnimal:syncPlayerMovement', speedType, speedValue, isPlayerAnimal)
+                if oldSpeedValue != speedValue or oldSpeedType != speedType then
+                    oldSpeedValue = speedValue
+                    oldSpeedType = speedType
+                    TriggerServerEvent('AnythingAnimal:syncPlayerMovement', speedType, speedValue, isPlayerAnimal)
+                end
             end
 
             /*
-            if IsPedWalking(ped) and IsPedOnFoot(ped) and (IsControlPressed(0, 32) or IsControlPressed(0, 33) or IsControlPressed(0, 34) or IsControlPressed(0, 35)) then
-                -- Use / adjust general walk speed
-            elseif not IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
-                -- If inside (in MLO/underground) and shift (sprint) is pressed
-            elseif IsCollisionMarkedOutside(xyz) and IsControlPressed(0, 21) then
-                -- If outside and shift (sprint) is pressed
-            end
+            IsCollisionMarkedOutside(xyz) -- If outside MLO/underground
             */
         end
+        Wait(0)
     end
 end)
 
@@ -156,9 +157,9 @@ function UpdateSpeed(speed, speedType)
     local newSpeed = speed
     local increment = 0.01
 
-    if IsControlPressed(0, 96) then -- scroll up
+    if IsControlPressed(0, 96) then -- scroll up / NUM +
         newSpeed += increment
-    elseif IsControlPressed(0, 97) then -- scroll down
+    elseif IsControlPressed(0, 97) then -- scroll down / NUM -
         newSpeed -= increment
     end
 
@@ -272,6 +273,7 @@ exports('getIsPlayerAnimal', function() return isPlayerAnimal end)
     -- print(exports['AnythingAnimal']:getIsPlayerAnimal())
 
 -- Functions
+/*
 function LoadAnim(dict)
     if not DoesAnimDictExist(dict) then
         return false
@@ -284,7 +286,7 @@ function LoadAnim(dict)
 
     return true
 end
-
+*/
 
 -- DEBUG COMMAND
 RegisterCommand('aadebug', function(source, args, raw)
