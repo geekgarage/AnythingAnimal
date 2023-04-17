@@ -27,8 +27,3 @@ RegisterNetEvent('JumpPED', function(isAnimal, jumpCoords)
 end)
 */
 
-RegisterNetEvent('AnythingAnimal:syncPlayerMovement', function(speedType, speedValue, isSourceAnimal)
-    if isSourceAnimal then
-        TriggerClientEvent('AnythingAnimal:syncPlayerMovement', -1, source, speedType, speedValue)
-    end
-end)

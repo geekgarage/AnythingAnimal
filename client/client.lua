@@ -101,6 +101,8 @@ CreateThread(function()
     end
 end)
 
+
+
 -- Main Thread
 CreateThread(function()
     while true do
@@ -137,45 +139,28 @@ CreateThread(function()
     end
 end)
 
-
+/*
 CreateThread(function() --Sync Animation Speed to server and detect player jump
     while true do
         -- Send the speed change event to the server to synchronize with other players
         if (oldSpeedValue ~= speedValue) or (oldSpeedType ~= speedType) and isPlayerAnimal then
             oldSpeedValue = speedValue
             oldSpeedType = speedType
-            TriggerServerEvent('AnythingAnimal:syncPlayerMovement', speedType, speedValue, isPlayerAnimal)
+            
             Wait(250)
         end
-/*
+
         --local xyz = GetEntityCoords(ped)
         if IsControlPressed(0, 22) then
             --TriggerServerEvent('JumpPED', isPlayerAnimal, false)
             TaskJump(ped, true)
             Wait(2000)
         end
-*/
+
         Wait(0)
     end
 end)
-
--- Handle the speed change event received from the server
-RegisterNetEvent('AnythingAnimal:syncPlayerMovement', function(playerId, speedType, speedValue)
-    local targetPed = GetPlayerPed(GetPlayerFromServerId(playerId))
-    if DoesEntityExist(targetPed) then
-        if speedType == "walk" then
-            SetEntityMaxSpeed(targetPed, speedValue)
-        elseif speedType == "jog" then
-            SetRunSprintMultiplierForPlayer(GetPlayerFromServerId(playerId), speedValue)
-        elseif speedType == "sprint" then
-            SetRunSprintMultiplierForPlayer(GetPlayerFromServerId(playerId), speedValue)
-            SetPedMoveRateOverride(targetPed, speedValue)
-        elseif speedType == "swim" then
-            SetRunSprintMultiplierForPlayer(GetPlayerFromServerId(playerId), speedValue)
-            SetPedMoveRateOverride(targetPed, speedValue)
-        end
-    end
-end)
+*/
 
 function UpdateSpeed(speed, speedType, ped)
     local newSpeed = speed
@@ -184,9 +169,11 @@ function UpdateSpeed(speed, speedType, ped)
     if IsControlPressed(0, 96) then -- scroll up / NUM +
         newSpeed += increment
         print(newSpeed)
+        PrintSpeeds()
     elseif IsControlPressed(0, 97) then -- scroll down / NUM -
         newSpeed -= increment
         print(newSpeed)
+        PrintSpeeds()
     end
 
     -- Clamp and apply speed between min & max
@@ -198,17 +185,27 @@ function UpdateSpeed(speed, speedType, ped)
         newSpeed = math.min(math.max(newSpeed, Config.JogSpeedMin), Config.JogSpeedMax)
         --SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
         SetPedMoveRateOverride(ped, newSpeed)
+        SetRunSprintMultiplierForPlayer(ped, "creatures@dog@move", "run", 0.20)
     elseif speedType == "sprint" then
         newSpeed = math.min(math.max(newSpeed, Config.SprintSpeedMin), Config.SprintSpeedMax)
         --SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
         SetPedMoveRateOverride(ped, newSpeed)
+        SetRunSprintMultiplierForPlayer(ped, "creatures@dog@move", "sprint", 0.20)
     elseif speedType == "swim" then
         newSpeed = math.min(math.max(newSpeed, Config.SwimSpeedMin), Config.SwimSpeedMax)
         --SetRunSprintMultiplierForPlayer(PlayerId(), newSpeed)
         SetPedMoveRateOverride(ped, newSpeed)
+        SetRunSprintMultiplierForPlayer(ped, "creatures@dog@move", "sprint", 0.20)
     end
 
     return newSpeed
+end
+
+function PrintSpeeds()
+    ped = PlayerPedId()
+    print("M/s: ", GetEntitySpeed(ped))
+    print("Mi/T: ", GetEntitySpeed(ped) * 2.236936)
+    print("Km/T: ", GetEntitySpeed(ped) * 3.6)
 end
 
 -- Add Chat commands
@@ -264,6 +261,7 @@ RegisterNetEvent('GetOffsetInWorld', function()
 end)
 */
 
+
 -- CB from server
 RegisterNetEvent('AnythingAnimal:UpdMovementSpeed', function(speed, speedType)
     -- Clamp and apply speed between min & max
@@ -302,8 +300,8 @@ function LoadAnim(dict)
 end
 */
 
--- DEBUG COMMAND
 /*
+-- DEBUG COMMAND
 RegisterCommand('aadebug', function(source, args, raw)
     local player = PlayerId()
     local ped = PlayerPedId()
